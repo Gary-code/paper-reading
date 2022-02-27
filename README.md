@@ -174,7 +174,101 @@ $f(x) = H(x) + x$
 
 
 
+### [BERT: Pre-training of Deep Bidirectiional Transformers for Language Understanding](https://github.com/Gary-code/paper-reading/blob/main/BERT%EF%BC%9APre-training%20of%20Deep%20Bidirectional%20Transformers%20for.pdf)
+
+> BERT， 代表NLP真的可以做预训练了
+>
+> * 过去三年最重要的NLP论文
+
+#### 摘要
+
+> 这是一篇非常标准的摘要
+
+1. 介绍区别（双向）
+2. 泛化性好
+3. 数据精度
+   1. 绝对精度
+   2. 相对精度
+
+#### 前期工作
+
+* 任务level
+
+  * token level
+  * sentence level
+
+* 过往的方法
+
+  * 基于特征 feature-based
+    * ELMO词嵌入
+    * 基于RNN的
+  * 微调的 fine-tuning
+    * Transformer-> GPT
+    * 单向的，现在预测未来
+  * 两个方法都是同目标函数+单向的
+
+* 局限性=> 我们的方法
+
+  * 看完整的句子（双向）
+  * 带掩码的语言模型，类似于完型填空
+  * 看原文中两句子是否相邻
+  * **均为无监督的学习**
+
+* 论文贡献
+
+  * 双向性，对比以前的数据精度
+  * 微调，下游任务的表现
+
+  
+
+#### 模型架构
+
+```mermaid
+graph LR
+预训练 --在无标签的数据上训练,掩码+相邻句子--> BERT
+微调 --使用有标号的下游任务,初始化权重为预训练后的--> BERT
+BERT --> Transformer块L+隐藏层单元数H+多头数A
+BERT --> inout((输入与输出,只有一个编码器))--> 带掩码 -->WordPiece切词方法生成序列 --> 30Ktoken的字典,句子以CLS开头
+
+inout --> 相邻句子 --> 分开句子使用SEP
+相邻句子 --> 增加一个嵌入层给每个token --> 用来表示属于哪个句子
+
+BERT --> pretraining((预训练)) --> 带掩码的语言模型 --> 15percents盖住,处理比较特殊,详见论文
+
+pretraining --> NSP,下一个句子 --> 一半真一半假 --> emb((嵌入层)) --> 词元嵌入
+emb --> Segment,A句子还是B句子
+emb --> 位置position嵌入
+
+词元嵌入 --> 输入
+Segment,A句子还是B句子 --> 输入
+位置position嵌入 --> 输入
+
+BERT --> ft((微调)) --> des((根据目标函数设计输入输出)) -..->句子对
+des -..-> QA
+des -..-> entailment,推理
+des -..-> text-空集 -..->CLS放入输出等等方法
+ft --> exp((实验))
+exp --> GLUE,句子层面,单句子的
+exp --> SQuAD,词元层面 --> 学习答案的开头结尾
+exp --> SWAG,两句子之间的关系
 
 
 
+
+```
+
+
+
+#### 展望
+
+* 开启了大模型的开端，亿级别的参数
+* 基于前人工作，但效果非常好
+* 微调可用于很多NLP任务
+
+#### 写作
+
+* 中规中矩的一篇文章
+* 简单，暴力，效果好
+* 要多些贡献了什么，失去了什么
+  * 生成类问题使用BERT较难
 
