@@ -272,3 +272,43 @@ exp --> SWAG,两句子之间的关系
 * 要多些贡献了什么，失去了什么
   * 生成类问题使用BERT较难
 
+
+
+### [GPT](https://github.com/Gary-code/paper-reading/blob/main/GPT.pdf)
+
+#### Reviews
+
+```mermaid
+graph TB
+大力出奇迹 --17/06--> Transfomer --18/06--> BERT --19/02--> GPT-2 --20/05--> GPT-3 
+```
+
+#### 解决问题
+
+* 无标号数据下预训练，构建与任务相关的输入
+* 利用无监督文本的难点
+  * 目标函数
+  * 子任务不一致
+* 基于Transformer解码器，BERT基于Transformer编码器
+
+#### 模型思想
+
+* 预训练
+
+  * 构建语言模型
+  * 给出前$k$个词，预测下一个词，最大化似然函数
+    * $L_1(U) = \sum_i log P(u_i \mid u_{i-k}, ..., u_{i-1})$
+  * 进入Transformer块（输入输出形状不会改变的）
+
+* 微调
+
+  * 给出词元序列$x^1, x^2, ..., x^m$预测标号$y$
+  * $L_2(C) = \sum_{(x, y)} log P(y \mid x^1, ..., x^n)$最大化
+  * 优化目标函数
+    * $L_3(C) = L_2(C) + \lambda * L_1(C)$
+
+  
+
+* 针对不同的NLP任务设计
+  * 不变的是预训练好的Transformer块
+
