@@ -312,3 +312,39 @@ graph TB
 * 针对不同的NLP任务设计
   * 不变的是预训练好的Transformer块
 
+
+
+### [GPT-2](https://github.com/Gary-code/paper-reading/blob/main/GPT-2.pdf)
+
+> 如何回应BERT
+
+首先技术路线不能变，仍然坚持要用编码器
+
+
+
+#### 基本思路
+
+* 提出更大的数据集
+* 15亿的参数（1.5B）
+* 结果不算很好，但卖点在`zero-shot`,新意度高
+
+#### 训练技巧
+
+* 模型与GPT类似
+* 微调时候差别较大
+  * 不再引入特殊标识符`<EOS>`之类的
+    * 避免pre-training没有，fine-tining时候模型感到困惑
+    * 下游任务不再需要构建出特殊标识符的输入输出
+  * 改成`(prompt, text, label)`
+    * `prompt`的提示文本可能也会出现在数据集当中，模型可以理解
+
+#### 数据集
+
+* `Common Crawl` 中垃圾信息太多
+* 改成使用Reddit网站爬下来45million的link，关于英语翻译法语的数据（详见[论文](https://github.com/Gary-code/paper-reading/blob/main/GPT-2.pdf)）
+
+#### 写作
+
+* 结果并不好，但新意度高，卖点就是`zero-shot`
+* `achieve promising, competetive, and state of the art results depending on task`
+
