@@ -356,3 +356,101 @@ graph TB
 * 结果并不好，但新意度高，卖点就是`zero-shot`
 * `achieve promising, competetive, and state of the art results depending on task`
 
+
+
+### [GPT-3](https://github.com/Gary-code/paper-reading/blob/main/GPT-3.pdf)
+
+> 技术报告共63页，并非正式发表的论文
+
+#### 概览
+
+* 175 billion parameters
+* 不再做微调
+  * 那么大的模型做微调很可怕
+  * 微调好，可能是因为你的pre-training过拟合了
+* 玩出花样来了，脸不红心不跳的写出一些文本
+* 大数据集
+
+#### 模型架构
+
+##### 预训练
+
+```mermaid
+graph LR
+Pre-training --> 学习大量任务,上下文学习 --> 海量语料库对GPT-3进行无监督预训练 --> 3000亿个token --目的-->模型可以有能力根据截至目前的输入去预测下一个单词
+```
+
+##### 无微调
+
+* zero/one/few-shot
+  * task description
+    * translate to chinese
+  * examples （如果不是zero-shot，会有一部分带标签的样本）
+  * prompt 
+    * cheese => 
+
+#### 训练数据集
+
+> 基于Common Crawl
+>
+> * 但数据集太脏，需要净化一下
+
+* Logistic Regression
+  * 之前Reddit的作为训练数据
+  * 判断Common Crawl上是否干净，保留干净的
+* LSH去重
+  * Information Retrival的重要算法，面试常考
+* 加上一些书籍的数据和维基百科的数据
+
+分配不同的采样率进行采样
+
+
+
+#### 训练过程
+
+太贵，普通人完全玩不起
+
+* 分布式训练
+* 模型分割与数据分割
+* 精度**线性**上升，数据量和计算量**指数**增加
+
+超大模型应该选择巨大批量进行分布式训练。每台机器`Batch_Size/n` n为机器数量
+
+* **批量上升，计算性能上升**
+* 但对**小模型**来说却**容易过拟合**，所以小模型不建议那么大的批量
+
+所以Batch Size的合理设置十分重要，下面是关于一些Batch Size大小的对比：
+
+| Batch Size           | Small      | Large                |
+| -------------------- | ---------- | -------------------- |
+| Speed for one update | Same       | Same (not too large) |
+| Time for one epoch   | Slower     | **Faster**           |
+| Gradient             | Noisy      | Stable               |
+| Optimization         | **Better** | Worse                |
+| Generalization       | **Better** | Worse                |
+
+#### 影响
+
+* 局限性
+  * 文本生成较弱，补全文本很好
+  * 向前看，不是双向的
+    * Transformer解码器
+  * 均匀预测，不知道哪个词比较重要
+    * 没见过vedio等数据
+  * 样本太多太多
+  * 到底是从头开始学习，还是纯粹记忆无法解释
+  * 太贵，解释性差
+* 深远影响
+  * 社会各方面
+
+#### 关于GPT的一些思考
+
+GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工作，又要读者翻引用文献实在不太好。
+
+
+
+* 做研究不要一条路走到黑，做过程你可以一条路走到黑，但是在做研究的时候，你要灵活一些，不要一条路走到黑。你需要尝试从一个新的角度来看问题。
+
+* gpt2还是做语言模型，但是在做到下游任务的时候，会用一个叫做zero-shot的设定，zero-shot是说，在做到下游任务的时候，不需要下游任务的任何标注信息，那么也不需要去重新训练已经预训练好的模型。这样子的好处是我只要训练好一个模型，在任何地方都可以用。
+* 如果作者就是在gpt1的基础上用一个更大的数据集训练一个更大的模型，说我的结果比Bert好一些，可能也就好那么一点点，不是好那么多的情况下，大家会觉得gpt2这篇文章就没什么意思了，工程味特别重。那么我换一个角度，选择一个更难的问题，我说做zero-shot。虽然结果可能没那么厉害了，没那么有优势，但是新意度一下就来了。
+
