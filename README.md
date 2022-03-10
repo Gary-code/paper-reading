@@ -470,3 +470,67 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
 * gpt2还是做语言模型，但是在做到下游任务的时候，会用一个叫做zero-shot的设定，zero-shot是说，在做到下游任务的时候，不需要下游任务的任何标注信息(特殊符号`<EOS>`等)，那么也不需要去重新训练已经预训练好的模型。这样子的好处是我只要训练好一个模型，在任何地方都可以用。
 * 如果作者就是在gpt1的基础上用一个更大的数据集训练一个更大的模型，说我的结果比BERT好一些，可能也就好那么一点点，不是好那么多的情况下，大家会觉得gpt2这篇文章就没什么意思了，工程味特别重。那么我换一个角度，选择一个更难的问题，我说做zero-shot。虽然结果可能没那么厉害了，没那么有优势，但是新意度一下就来了。
 
+
+
+
+
+## Multi-Modal
+
+### [CLIP](https://github.com/Gary-code/paper-reading/blob/main/Learning%20Transferable%20Visual%20Models%20From%20Natural%20Language%20Supervision(CLIP).pdf)
+
+> OpenAI 并未开源其代码，不过开源了他的模型，[可见](https://github.com/openai/CLIP)
+
+![image-20220310211940688](https://s2.loli.net/2022/03/10/SPuqeMXznkbRgrp.png)
+
+#### 概览
+
+* 2021/02提出，方法简单，效果超好
+* 衍生出很多有趣的应用
+* 迁移性非常好，利用自然语言监督信号
+
+
+
+#### Abstract
+
+* 当前视觉系统的问题，有固定的的类别数量
+* 文章工作，从**文本中得到监督的信号**
+* 直接zero-shot与图片文本配对
+* 结果
+  * 由于要证明其迁移性非常好
+  * CLIP怒刷了30个数据集，其在ImageNet上的准确度居然与ResNet-50一致
+  * 但其迁移性远远超越其他模型，转移到其他任务上，其他模型基本就是在乱猜了
+
+#### Introduction & Motivating Work
+
+> 本部分介绍了一些相关工作的发展
+
+```mermaid
+graph LR
+text-to-text与任务无关,Task-agnostic --> su((such as)) --> AutoRegressive
+su --> Masked
+text-to-text与任务无关,Task-agnostic --> suggest无标号更好使
+
+re((相关工作)) --> Li2017 --> 也做了zero-shot,但是当时没有Transformer
+re --> pre((预训练方式不一样)) --自回归--> VirTex
+pre --带掩码--> ICMLM
+re --只在医疗图像上--> VIRT
+VIRT --> eno((数据规模不行))
+ICMLM --> eno
+VirTex --> eno
+
+Li2017 --问题 --> 准确度居然只有11.5percent -->开始热衷于研修利用文本若监督信号,帮助有监督的模型--> hastags
+开始热衷于研修利用文本若监督信号,帮助有监督的模型 --> JFT-300Mdataset
+
+开始热衷于研修利用文本若监督信号,帮助有监督的模型 --> 因为有标注的litmited
+开始热衷于研修利用文本若监督信号,帮助有监督的模型 --> 因为无标注的结果差
+开始热衷于研修利用文本若监督信号,帮助有监督的模型 --> 局限性 --> 要精心设计
+
+局限性 --> 类别优先,对新进来的类别无能为力
+
+eno --改进--> 加大数据规模
+
+加大数据规模 --> 数据集爬一个4亿文本图片对
+加大数据规模 --> 尝试使用从ResNet50到ViT_Large --计算量相差了100倍--> 模型迁移效果与模型大小基本上成正相关
+加大数据规模 --结果--> 30个数据集当中结果表现很好,而且模型更加文件,计算更高效
+```
+
