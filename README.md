@@ -536,3 +536,47 @@ eno --改进--> 加大数据规模
 加大数据规模 --结果--> 30个数据集当中结果表现很好,而且模型更加文件,计算更高效
 ```
 
+#### Approach
+
+```mermaid
+graph LR
+爬一个大文本图片配对数据集 --为了降低众多的可能,选择使用对比学习,只要两者配对即可--> 预训练:对比学习的方法,模型见上图 --> train((训练方法)) --> 混精度 --> 省内存,准确度基本不变,很常用的方法
+train --> gradient_checkpointing
+train --> half-precision_Adam_statistics
+train --> half-precision_stochastically
+```
+
+想了解更多关于如何在多个GPU训练超大模型的方法，可以见[博客](https://towardsdatascience.com/how-to-scale-training-on-multiple-gpus-dae1041f49d2)
+
+* 讨论
+  * 数据集太大不怎么可能overfitting
+  * 只做了随机crop的数据增强
+
+```python
+# image_encoder - ResNet or Vision Transformer
+# text_encoder - CBOW or Text Transformer
+# I[n, h, w, c] - minibatch of aligned images  # n为批量大小
+# T[n, l] - minibatch of aligned texts
+# W_i[d_i, d_e] - learned proj of image to embed
+# W_t[d_t, d_e] - learned proj of text to embed
+# t - learned temperature parameter
+# extract feature representations of each modality
+I_f = image_encoder(I) #[n, d_i]
+T_f = text_encoder(T) #[n, d_t]
+# joint multimodal embedding [n, d_e]
+I_e = l2_normalize(np.dot(I_f, W_i), axis=1)  # 投影后归一化
+T_e = l2_normalize(np.dot(T_f, W_t), axis=1)   
+# scaled pairwise cosine similarities [n, n]
+logits = np.dot(I_e, T_e.T) * np.exp(t)
+# symmetric loss function
+labels = np.arange(n)  # 1:n 因为对角线上的才是正样本
+loss_i = cross_entropy_loss(logits, labels, axis=0)
+loss_t = cross_entropy_loss(logits, labels, axis=1)
+loss = (loss_i + loss_t)/2
+```
+
+#### Summary
+
+* Limitation部分写得很好，可以多学习
+* 一篇$100 \times 100 \times 100$的论文，不过确实很长
+
