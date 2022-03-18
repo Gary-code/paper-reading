@@ -81,6 +81,45 @@ $f(x) = H(x) + x$
 
 
 
+### [Two-Stream Convolutional Networks for Action Recognition in Videos](https://github.com/Gary-code/paper-reading/blob/main/NIPS-2014-two-stream-convolutional-networks-for-action-recognition-in-videos-Paper.pdf)
+
+> * 视频理解分类开山之作
+> * 双流神经网络
+> * CVPR2014
+
+#### 过去问题
+
+* 一个CNN一般学不到这种动作信息，比手工特征还要差20%
+* 既然学不了，我们就教他学
+  * 很多时候既然模型不会学，模型和`loss`无法解决问题的时候，采用一些先验信息十分关键(在这里体现为我们去教他学！)。
+
+```mermaid
+graph LR
+
+空间特征网络 --> ImageNet预训练 --> AlexNet变体 --无需锁住主干网络,因为一般数据集比较大都不会过拟合 --> 微调
+temp((时间流特征2琴萝)) --> Flow((光流Optical_Flow)) --> 抽取 --> 非常耗时
+
+抽取 --> 占用空间很大,但可以类似RGB那样进行压缩
+抽取 --方法--> 视频L+1帧 --水平垂直两个方向2L--> 输入为W*H*2L --双向,一般都会涨点,很好的方法--> 一半前向,一半后向
+temp --> 同样放入一个CNN里面去,然后softmax
+同样放入一个CNN里面去,然后softmax --> late_fusion,即softmax,最简单就是直接去平均
+微调 --> late_fusion,即softmax,最简单就是直接去平均
+```
+
+
+
+#### 痛点
+
+* 光流
+  * 耗时很长很长
+  * 占用存储空间很大很大，对IO考验很大
+* 为什么基于动作轨迹的方式比同一位置预测效果为差，这里[CVPR2015 Action Recognition with Trajectory-Pooled Deep-Convolutional Descriptors](https://arxiv.org/abs/1505.04868)解决了
+* 相机移动的影响，手工特征中会考虑这些信息，文章这里只做了最简单的减去均值的方法
+
+#### 影响
+
+* 当模型优化，损失函数调整后仍然无法解决问题的话，那就试着教模型怎么去学！！！
+
 
 
 ## NLP
