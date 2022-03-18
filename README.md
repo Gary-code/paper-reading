@@ -1,4 +1,22 @@
-## CNN
+# Neural Network Paper Tutorial, Reading and Notes
+
+This repository contains a list of tutorials, papers, notes of **Neural Network**. If you found any error, please don't hesitate to open an issue or pull request. I will also add some code and other information of these awesome paper.
+
+------
+
+
+
+## :fire: CNN
+
+| 日期     | 标题                                                         | 说明             |
+| -------- | ------------------------------------------------------------ | ---------------- |
+| 02/13/22 | [AlexNet](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) |                  |
+| 02/13/22 | [ResNet](https://arxiv.org/abs/1512.03385)                   |                  |
+| 03/18/22 | [Two-Stream](https://proceedings.neurips.cc/paper/2014/file/00ec53c4682d36f5c4359f4ae7bd7ba1-Paper.pdf) | 视频理解开山之作 |
+
+
+
+
 
 ### [ImageNet Classification with Deep Convolutional Neural Networks](https://github.com/Gary-code/paper-reading/blob/main/ImageNet%20Classification%20with%20Deep%20Convolutional.pdf)
 
@@ -119,9 +137,21 @@ temp --> 同样放入一个CNN里面去,然后softmax
 
 * 当模型优化，损失函数调整后仍然无法解决问题的话，那就试着教模型怎么去学！！！
 
+------
 
 
-## NLP
+
+##  :telescope: NLP
+
+| 日期     | 标题                                                         | 说明 |
+| -------- | ------------------------------------------------------------ | ---- |
+| 02/24/22 | [Transformer](https://arxiv.org/abs/1706.03762)              |      |
+| 02/27/22 | [BERT](https://arxiv.org/abs/1810.04805)                     |      |
+| 03/03/07 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) |      |
+
+
+
+
 
 ### [Attention is All you need](https://github.com/Gary-code/paper-reading/blob/main/Attention%20Is%20All%20You%20Need.pdf)
 
@@ -510,9 +540,17 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
 
 
 
+------
 
 
-## Multi-Modal
+
+## :rocket: Multi-Modal
+
+| 日期     | 标题                                  | 说明 |
+| -------- | ------------------------------------- | ---- |
+| 03/09/22 | [CLIP](https://openai.com/blog/clip/) |      |
+
+
 
 ### [CLIP](https://github.com/Gary-code/paper-reading/blob/main/Learning%20Transferable%20Visual%20Models%20From%20Natural%20Language%20Supervision(CLIP).pdf)
 
