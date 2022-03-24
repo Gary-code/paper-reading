@@ -540,6 +540,18 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
 
 
 
+### [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374)
+
+> CodeX
+>
+> * GPT-based
+> * 做了微调
+
+* 做了一个评估数据集
+* `BLUE`对代码评估并不好，所以使用了`param@k`的方法，但这个方法没有排序，`k`很大时不是很好
+
+
+
 ------
 
 
