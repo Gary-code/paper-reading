@@ -147,7 +147,8 @@ temp --> 同样放入一个CNN里面去,然后softmax
 | -------- | ------------------------------------------------------------ | ---- |
 | 02/24/22 | [Transformer](https://arxiv.org/abs/1706.03762)              |      |
 | 02/27/22 | [BERT](https://arxiv.org/abs/1810.04805)                     |      |
-| 03/03/07 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) |      |
+| 03/07/22 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) |      |
+| 03/20/22 | [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) |      |
 
 
 
@@ -549,6 +550,10 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
 
 * 做了一个评估数据集
 * `BLUE`对代码评估并不好，所以使用了`param@k`的方法，但这个方法没有排序，`k`很大时不是很好
+
+
+
+### [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374)
 
 
 
