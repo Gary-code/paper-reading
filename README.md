@@ -18,7 +18,7 @@ This repository contains a list of tutorials, papers, notes of **Neural Network*
 
 
 
-### [ImageNet Classification with Deep Convolutional Neural Networks](https://github.com/Gary-code/paper-reading/blob/main/ImageNet%20Classification%20with%20Deep%20Convolutional.pdf)
+### [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)
 
 > AlexNet
 
@@ -43,7 +43,7 @@ This repository contains a list of tutorials, papers, notes of **Neural Network*
 
 这篇论文写作格式有些不好，没有结论，不过这是深度学习的开创性工作。
 
-### [Deep Residual Learning for Image Recognition](https://github.com/Gary-code/paper-reading/blob/main/Deep%20Residual%20Learning%20for%20Image%20Recognition.pdf)
+### [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
 
 > ResNet
 
@@ -99,7 +99,7 @@ $f(x) = H(x) + x$
 
 
 
-### [Two-Stream Convolutional Networks for Action Recognition in Videos](https://github.com/Gary-code/paper-reading/blob/main/NIPS-2014-two-stream-convolutional-networks-for-action-recognition-in-videos-Paper.pdf)
+### [Two-Stream Convolutional Networks for Action Recognition in Videos](https://proceedings.neurips.cc/paper/2014/file/00ec53c4682d36f5c4359f4ae7bd7ba1-Paper.pdf)
 
 > * 视频理解分类开山之作
 > * 双流神经网络
@@ -149,12 +149,13 @@ temp --> 同样放入一个CNN里面去,然后softmax
 | 02/27/22 | [BERT](https://arxiv.org/abs/1810.04805)                     |      |
 | 03/07/22 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) |      |
 | 03/20/22 | [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) |      |
+| 03/25/22 | [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814) |      |
 
 
 
 
 
-### [Attention is All you need](https://github.com/Gary-code/paper-reading/blob/main/Attention%20Is%20All%20You%20Need.pdf)
+### [Attention is All you need](https://arxiv.org/abs/1706.03762)
 
 > Transformer
 
@@ -243,7 +244,7 @@ temp --> 同样放入一个CNN里面去,然后softmax
 
 
 
-### [BERT: Pre-training of Deep Bidirectiional Transformers for Language Understanding](https://github.com/Gary-code/paper-reading/blob/main/BERT%EF%BC%9APre-training%20of%20Deep%20Bidirectional%20Transformers%20for.pdf)
+### [BERT: Pre-training of Deep Bidirectiional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
 
 > BERT， 代表NLP真的可以做预训练了
 >
@@ -343,7 +344,7 @@ exp --> SWAG,两句子之间的关系
 
 
 
-### [GPT](https://github.com/Gary-code/paper-reading/blob/main/GPT.pdf)
+### [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf)
 
 #### Reviews
 
@@ -383,7 +384,7 @@ graph TB
 
 
 
-### [GPT-2](https://github.com/Gary-code/paper-reading/blob/main/GPT-2.pdf)
+### [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
 
 > 如何回应BERT
 
@@ -427,7 +428,7 @@ graph TB
 
 
 
-### [GPT-3](https://github.com/Gary-code/paper-reading/blob/main/GPT-3.pdf)
+### [GPT-3](https://arxiv.org/abs/2005.14165)
 
 > 技术报告共63页，并非正式发表的论文
 
@@ -552,9 +553,9 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
 * 做了一个评估数据集
 * `BLUE`对代码评估并不好，所以使用了`param@k`的方法，但这个方法没有排序，`k`很大时不是很好
 
+### [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814)
 
-
-### [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374)
+> 打CodeForces，打败一半程序员
 
 
 
@@ -674,3 +675,60 @@ loss = (loss_i + loss_t)/2
 * Limitation部分写得很好，可以多学习
 * 一篇$100 \times 100 \times 100$的论文，不过确实很长
 
+
+
+---
+
+
+
+## :framed_picture: CV
+
+##  
+
+| 日期     | 标题       | 说明 |
+| -------- | ---------- | ---- |
+| 03/30/22 | [ViT](ViT) |      |
+|          |            |      |
+|          |            |      |
+|          |            |      |
+
+
+
+### [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](ViT)
+
+> Vision Transformer
+>
+> * Transformer 用在CV领域
+> * ICCV 21 最佳论文
+
+#### Mindmap
+
+```mermaid
+graph LR
+
+all((NLP上Transformer表现很好)) --应用在CV上的难点--> 序列太长 --解决方法--> 224/16=14patch --> train((训练)) --小数据集上差于CNN--> 因为Transformer缺少先验信息,CNN的归纳偏置 --> 转到大数据集上,ViT就表现很好了  --训练方法--> 有监督训练,判别式网络 --> 未来MAE将生成式网络应用到CV上
+
+all --之前工作--> 特征图,窗口,轴注意力等 --> 太难训练了
+```
+
+
+
+### 写作
+
+* 摘要简短易懂
+* 导言写得很标准
+  * NLP中Transformer思想
+  * 应用CV难点，前人努力
+  * 买结果，分析结果
+* 相关工作写得很好，让不是这个领域的人都可以快速明白你论文干什么
+  * NLP中BERT和GPT
+  * CV中序列太长前人如何做近似
+  * 最相似的论文，前人工作，我们的不一样的地方，**换个角度讲故事**
+  * 我们的结果如何
+* 结论
+  * 买结果，优点是什么
+  * 挖坑新模型
+    * 迁移到图像分割 `SERT`
+    * 迁移到目标检测 `ViT-RCNN`+`DETR(2020)`
+      * `DETR`彻底改变出框的规则！`ViT-RCNN`则是迁移到目标检测上
+    * 更大`ViT`，自己填坑
