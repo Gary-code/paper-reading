@@ -683,16 +683,12 @@ loss = (loss_i + loss_t)/2
 
 ## :framed_picture: CV
 
-##  
-
-| 日期     | 标题       | 说明 |
-| -------- | ---------- | ---- |
-| 03/30/22 | [ViT](ViT) |      |
-|          |            |      |
-|          |            |      |
-|          |            |      |
-
-
+| 日期     | 标题                                    | 说明 |
+| -------- | --------------------------------------- | ---- |
+| 03/30/22 | [ViT](ViT)                              |      |
+| 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750) |      |
+|          |                                         |      |
+|          |                                         |      |
 
 ### [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](ViT)
 
@@ -711,9 +707,7 @@ all((NLP上Transformer表现很好)) --应用在CV上的难点--> 序列太长 -
 all --之前工作--> 特征图,窗口,轴注意力等 --> 太难训练了
 ```
 
-
-
-### 写作
+#### 写作
 
 * 摘要简短易懂
 * 导言写得很标准
@@ -732,3 +726,7 @@ all --之前工作--> 特征图,窗口,轴注意力等 --> 太难训练了
     * 迁移到目标检测 `ViT-RCNN`+`DETR(2020)`
       * `DETR`彻底改变出框的规则！`ViT-RCNN`则是迁移到目标检测上
     * 更大`ViT`，自己填坑
+
+### **[Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset](https://arxiv.org/abs/1705.07750)**
+
+> I3D
