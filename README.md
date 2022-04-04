@@ -705,7 +705,20 @@ graph LR
 all((NLP上Transformer表现很好)) --应用在CV上的难点--> 序列太长 --解决方法--> 224/16=14patch --> train((训练)) --小数据集上差于CNN--> 因为Transformer缺少先验信息,CNN的归纳偏置 --> 转到大数据集上,ViT就表现很好了  --训练方法--> 有监督训练,判别式网络 --> 未来MAE将生成式网络应用到CV上
 
 all --之前工作--> 特征图,窗口,轴注意力等 --> 太难训练了
+
 ```
+
+#### 模型
+
+* 论文示意图非常清楚
+* 核心：图片变成token
+
+```mermaid
+graph LR
+ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入CLS分类字符变成197*768 --位置编码--> 位置编码为每个patch一个可学习的向量,直接sum!,变成197*768 --> 多头注意力
+```
+
+
 
 #### 写作
 
@@ -730,3 +743,38 @@ all --之前工作--> 特征图,窗口,轴注意力等 --> 太难训练了
 ### **[Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset](https://arxiv.org/abs/1705.07750)**
 
 > I3D
+
+
+
+
+
+
+
+## Contrast Learning
+
+| 日期     | 标题                                    | 说明 |
+| -------- | --------------------------------------- | ---- |
+| 04/04/22 | [MoE](https://arxiv.org/abs/1911.05722) |      |
+|          |                                         |      |
+|          |                                         |      |
+|          |                                         |      |
+
+
+
+### [Momentum Contrast for Unsupervised Visual Representation Learning](https://arxiv.org/abs/1911.05722)
+
+> MoE
+>
+> * 对比学习简单好用且强大
+> * 无监督学习真的可以
+
+
+
+#### 什么是对比学习
+
+* 只需要哪几个样本相似，或者说哪几个特征函数在相邻的区域里
+* 自监督学习，通过巧妙设计代理任务来**定义规则**进行**正负样本的划分**
+  * 例子：instance discrimination
+    * $N$张无标注的图片当中，对$x_i$进行Tranformation(crop和augmentation) => $x^{1}_i$,$x^{1}_2$...。他们之间为正样本
+    * 那么负样本就是其他所有其他的图片$x_j,j \ne i$
+
