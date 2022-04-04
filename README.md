@@ -184,7 +184,7 @@ temp --> 同样放入一个CNN里面去,然后softmax
 
 * **Attention**
 
-  * 输出为value的加权和，权重从KV相似性计算得来
+  * 输出为value的加权和，权重从KQ相似性计算得来
   * Scaled Dot-Product
     * $Attention(Q, K, V) = \text{softmax}(\frac{QK^T}{\sqrt {d_k}}V)$
       * $Q : n \times d_k$
@@ -750,7 +750,7 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 
 
-## Contrast Learning
+## :sunrise: Contrast Learning
 
 | 日期     | 标题                                    | 说明 |
 | -------- | --------------------------------------- | ---- |
