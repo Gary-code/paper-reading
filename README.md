@@ -763,14 +763,15 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 ### [Momentum Contrast for Unsupervised Visual Representation Learning](https://arxiv.org/abs/1911.05722)
 
-> MoE
+> MoCo, 2020 CVPR
 >
 > * 对比学习简单好用且强大
 > * 无监督学习真的可以
+> * 本文真的是细节满满！！！
 
 
 
-#### 什么是对比学习
+#### 什么是对比学习(Contrast Learning)
 
 * 只需要哪几个样本相似，或者说哪几个特征函数在相邻的区域里
 * 自监督学习，通过巧妙设计代理任务来**定义规则**进行**正负样本的划分**
@@ -778,3 +779,128 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
     * $N$张无标注的图片当中，对$x_i$进行Tranformation(crop和augmentation) => $x^{1}_i$,$x^{1}_2$...。他们之间为正样本
     * 那么负样本就是其他所有其他的图片$x_j,j \ne i$
 
+#### 摘要
+
+* 介绍我们的做法：就是一个字典查询问题
+  * 队列实现
+  * 移动平均的encoder
+* 结果相当惊人，在下游任务中表现及其出色
+
+
+
+#### 引言
+
+```mermaid
+graph LR
+为什么图像做无监督学习困难 -->why((表征方式))--> NLP:tokenized-dictionaries
+why --> image:high-dimensional-space&not-structured
+
+相关工作 --> 构造一个动态字典来做无监督学习
+
+Ours --> q+k --> 为什么保证large+consistent的猜想 --做法--> 大的,一致的字典with对比损失函数 --> 介绍代理任务 --> 买结果
+```
+
+#### 相关工作
+
+1. loss
+
+   * 类型有：
+     * 生成式网络
+     * 判别式网络（ex: 在那个方位）
+     * 对比学习（目标一直在变，由字典来决定）
+     * 对抗性网络
+
+   2. 下游任务
+      * 感兴趣可以自行了解
+      * 整张图片重构
+      * 上下文重构
+      * 上色
+      * 伪标签......
+
+#### 方法
+
+![image-20220405214832225](https://s2.loli.net/2022/04/05/H43OC1pFMPWIZQb.png)
+
+* 损失函数 
+
+$$
+\mathcal{L}_{q}=-\log \frac{\exp \left(q \cdot k_{+} / \tau\right)}{\sum_{i=0}^{K} \exp \left(q \cdot k_{i} / \tau\right)}
+$$
+
+注意有 $K$个negative sample
+
+
+
+* **使用队列**
+
+  * 先进先出
+  * 大小灵活
+  * 计算开销小
+  * 每次进去一个mini-batch，出来一个mini-batch
+
+* **动量更新**
+
+  * 队列太长无法梯度回传怎么办
+  * 如果只用一个 `mini-batch` 的梯度更新右侧网络，或者说右侧网络只掌握一个 `mini-batch` 的表示，那右侧网络直接输出和左侧网络一样的东西不就行了，这样损失很小，但什么也没学到。因此，不能用一个 `mini-batch` 的梯度去更新右侧网络。
+  * 如果将$f_q$每次给$f_k$，那么更更新太快，每次的mini-batch的$k$的encoder差距太大了，一致性美女办法保证
+  * 因此使用:
+
+  $$
+  \theta_{\mathrm{k}} \leftarrow m \theta_{\mathrm{k}}+(1-m) \theta_{\mathrm{q}}
+  $$
+
+  * 发现，$m=0.999$时比$m=0.9$时效果都要好！前者意味着更新非常缓慢
+  * 充分利用队列：缓慢梯度动量更新
+
+* 简介易懂的伪代码，**强烈建议看一下开源的[代码](https://github.com/facebookresearch/moco)**
+
+  ```python
+  # f_q, f_k: encoder networks for query and key
+  # queue: dictionary as a queue of K keys (CxK) 128*65536(256*256)
+  # m: momentum
+  # t: temperature
+  f_k.params = f_q.params # initialize
+  for x in loader: # load a minibatch x with N samples
+      x_q = aug(x) # a randomly augmented version
+      x_k = aug(x) # another randomly augmented version
+      q = f_q.forward(x_q) # queries: NxC (256*168)
+      k = f_k.forward(x_k) # keys: NxC
+      k = k.detach() # no gradient to keys
+      # positive logits: Nx1
+      l_pos = bmm(q.view(N,1,C), k.view(N,C,1))
+      # negative logits: NxK
+      l_neg = mm(q.view(N,C), queue.view(C,K))
+      # logits: Nx(1+K)
+      logits = cat([l_pos, l_neg], dim=1)
+      # contrastive loss, Eqn.(1)
+      labels = zeros(N) # positives are the 0-th
+      loss = CrossEntropyLoss(logits/t, labels)
+      # SGD update: query network
+      loss.backward()
+      update(f_q.params)
+      # momentum update: key network
+      f_k.params = m*f_k.params+(1-m)*f_q.params
+      # update dictionary
+      enqueue(queue, k) # enqueue the current minibatch
+      dequeue(queue) # dequeue the earliest minibatch
+  ```
+
+  
+
+
+
+#### 结论与讨论
+
+* 结果好
+* 但是数据集大了提升会比较学一些
+* 启发未来的MAE，将代理任务搞成Mask auto-encoding的形式（两年前挖的坑，Kaiming自己来补，很有远见！）
+
+
+
+#### 写作
+
+在介绍动量对比学习前，写了一段承上启下，再次强调**研究动机**，**为什么提出MoCo**，很好的写作方式
+
+`Our hypothesis is that good features can be learned by a *large* dictionary that covers a rich set of negative samples, while the encoder for the dictionary keys is kept as *consistent* as possible despite its evolution.`
+
+`Based on this motivation, we present Momentum Contrast as described next.`
