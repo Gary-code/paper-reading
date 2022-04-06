@@ -752,21 +752,22 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 ## :sunrise: Contrast Learning
 
-| 日期     | 标题                                    | 说明 |
-| -------- | --------------------------------------- | ---- |
-| 04/04/22 | [MoE](https://arxiv.org/abs/1911.05722) |      |
-|          |                                         |      |
-|          |                                         |      |
-|          |                                         |      |
+| 日期     | 标题                                     | 说明 |
+| -------- | ---------------------------------------- | ---- |
+| 04/04/22 | [MoCo](https://arxiv.org/abs/1911.05722) |      |
+|          |                                          |      |
+|          |                                          |      |
+|          |                                          |      |
 
 
 
 ### [Momentum Contrast for Unsupervised Visual Representation Learning](https://arxiv.org/abs/1911.05722)
 
-> MoCo, 2020 CVPR
+> MoCo: 动量对比学习, 2020 CVPR
 >
 > * 对比学习简单好用且强大
 > * 无监督学习真的可以
+> * 相关讲解[博客链接](https://muyuuuu.github.io/2021/12/28/SSL-intro/)
 > * 本文真的是细节满满！！！
 
 
@@ -904,3 +905,6 @@ $$
 `Our hypothesis is that good features can be learned by a *large* dictionary that covers a rich set of negative samples, while the encoder for the dictionary keys is kept as *consistent* as possible despite its evolution.`
 
 `Based on this motivation, we present Momentum Contrast as described next.`
+
+
+
