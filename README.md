@@ -888,7 +888,22 @@ $$
 
   
 
+#### 实验
 
+> 本文做的实验非常有说服力，证明`MoCo`非常优秀。
+
+* 实验细节
+  * 都是冻住骨干网络，微调，学一个多分类头。
+* grid search后，找到了超大的学习率30，**启发人们对比学习学到的特征与有监督学习学到的有什么不一样。**
+* 消融实验 Ablation Experiment
+  * **有什么贡献就做什么消融实验去验证**
+  * 队列的好处
+    * 与`memory bank`和`SimCLR`来进行对比
+  * 动量的好处
+    * 之前把query编码器参数给过来发现无法训练`training loss oscillates`震荡！同时设置其他动量值(0.9 ~ 0.999)。
+  * 在一些基于像素的任务上对比有监督方法稍显逊色意外，其他都很厉害。
+    * instance segmentation
+    * semantic segmentation
 
 #### 结论与讨论
 
@@ -900,11 +915,15 @@ $$
 
 #### 写作
 
-在介绍动量对比学习前，写了一段承上启下，再次强调**研究动机**，**为什么提出MoCo**，很好的写作方式
+在介绍动量对比学习前，写了一段承上启下，再次强调**研究动机**，**为什么提出MoCo**，很好的写作方式。
+
+上游任务和下游任务上都对`memory bank`和`SimCLR`进行对比。非常有说服力。
 
 `Our hypothesis is that good features can be learned by a large dictionary that covers a rich set of negative samples, while the encoder for the dictionary keys is kept as consistent as possible despite its evolution.`
 
 `Based on this motivation, we present Momentum Contrast as described next.`
+
+`Remarkably, in all these tasks, MoCo pre-trained on IG-1B is consistently better than MoCo pre-trained on IN-1M. This shows that MoCo can perform well on this large-scale, relatively uncurated dataset. This represents ascenario towards real-world unsupervised learning.`
 
 
 
