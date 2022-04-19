@@ -683,12 +683,12 @@ loss = (loss_i + loss_t)/2
 
 ## :framed_picture: CV
 
-| 日期     | 标题                                    | 说明 |
-| -------- | --------------------------------------- | ---- |
-| 03/30/22 | [ViT](ViT)                              |      |
-| 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750) |      |
-|          |                                         |      |
-|          |                                         |      |
+| 日期     | 标题                                                         | 说明                   |
+| -------- | ------------------------------------------------------------ | ---------------------- |
+| 03/30/22 | [ViT](ViT)                                                   |                        |
+| 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750)                      |                        |
+| 04/15/22 | [Trajectory-Pooled features](https://arxiv.org/abs/1505.04868) | 解决轨道预测的视频问题 |
+|          |                                                              |                        |
 
 ### [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](ViT)
 
@@ -743,8 +743,41 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 ### **[Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset](https://arxiv.org/abs/1705.07750)**
 
 > I3D
+>
+> * 目前到底用`3D`, `2D`, 还是`Transformer`在视频上还是没有定论！(2022)
 
+#### 贡献
 
+* `Kinetics`数据集
+  * 做视频必测数据集
+  * 但仍然存在不足，其中间抽一部分帧来做分类已经准确率不错了，没有真正让验证模型的学习时序信息的能力
+* 模型
+  * 双流 + 3D
+
+#### 对比以往工作
+
+* ![image-20220419175236619](https://s2.loli.net/2022/04/19/FhM5iHS4LXntgRd.png)
+  * CNN + LSTM
+  * 3D CNN
+  * 双流神经网络
+
+#### 训练方法与技巧
+
+* `Inflated` 将`2D`的模型直接用到`3D`上, 不用自己再花心思设计网络架构
+* `2D`预训练的模型参数直接运用到`3D`上，如何使用:
+  * 时间维度 $\times N$
+  * 可见[代码](https://github.com/dmlc/gluon-cv/blob/master/gluoncv/model_zoo/action_recognition/i3d_resnet.py)
+
+#### 写作
+
+* 为了验证数据集的有效性，和分析过去数据集的不足的地方。需要benmark一下以前的方法
+  * 在`Kinetics`数据集上用过去的方法进行预训练
+  * 在以前的数据集上进行微调
+  * 分析得出，效果参差不齐
+    * 验证了过去数据集太小了，体现不出来深度学习间**不同模型之间的差异**！
+  * 顺理成章总结过去三类方法提出文章的模型(**双流 + 3D**， 如上图`e`所示。)
+
+### [Action Recognition with Trajectory-Pooled Deep-Convolutional Descriptors](https://arxiv.org/abs/1505.04868)
 
 
 
