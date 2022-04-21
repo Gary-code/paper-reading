@@ -960,3 +960,38 @@ $$
 
 
 
+## :pick: Other Related Topic
+
+| 日期     | 标题                                         | 说明 |
+| -------- | -------------------------------------------- | ---- |
+| 04/21/22 | [Sinkhorn](https://arxiv.org/abs/1802.08665) |      |
+|          |                                              |      |
+|          |                                              |      |
+|          |                                              |      |
+
+### [Learning Latent Permutations with Gumbel-Sinkhorn Networks](https://arxiv.org/abs/1802.08665)
+
+> ICML 2018
+
+### 思路
+
+* Gumbel-Sinkhorn的基本思路是
+
+  * 一个排列结果实际上等于原序列乘以一个置换矩阵。
+
+  * 可以用Sinkhorn算子，以一种连续化的思路逼近这个置换矩阵，这幅图展示了置换矩阵是怎样将向量中的各个元素重新排序的：
+
+    ![](https://pic2.zhimg.com/80/v2-ce93fdbebae3c4991de6303f9143d355_720w.jpg)
+
+  * 通过这种转化之后，排列问题就转化成了**置换矩阵的学习**问题
+
+  * 置换矩阵的特点是每行、每列都只有一个1，其他元素都是0。
+
+* sinkorn算子
+
+  * 指数化整个矩阵
+  * 对行和列做归一化
+  * 随机初始化矩阵无限接近一个置换矩阵
+
+* [具体公式](https://zhuanlan.zhihu.com/p/110951790)
+
