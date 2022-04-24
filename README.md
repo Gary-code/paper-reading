@@ -688,7 +688,7 @@ loss = (loss_i + loss_t)/2
 | 03/30/22 | [ViT](ViT)                                                   |                        |
 | 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750)                      |                        |
 | 04/15/22 | [Trajectory-Pooled features](https://arxiv.org/abs/1505.04868) | 解决轨道预测的视频问题 |
-|          |                                                              |                        |
+| 04/24/22 | [Overview of vedio](https://arxiv.org/abs/2012.06567)        |                        |
 
 ### [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](ViT)
 
@@ -779,9 +779,35 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 ### [Action Recognition with Trajectory-Pooled Deep-Convolutional Descriptors](https://arxiv.org/abs/1505.04868)
 
+> I3D
+>
+> * 3D卷积神经网络
 
 
 
+### [A Comprehensive Study of Deep Video Action Recognition](https://arxiv.org/abs/2012.06567)
+
+> * 视频理解的综述文章（到2021年）
+> * 近两百篇论文
+> * 视频动作识别是very hot topic
+
+#### 发展
+
+* Hand-crafted CNN
+  * [cvpr 2014 deep video](https://www.cv-foundation.org/openaccess/content_cvpr_2014/html/Karpathy_Large-scale_Video_Classification_2014_CVPR_paper.html)
+  * 视频与图片不同就是**多了一个时间轴**
+  * ![image-20220424135641060](https://s2.loli.net/2022/04/24/yNHnYx1Mw3zilSQ.png)
+  * ![image-20220424141609324](https://s2.loli.net/2022/04/24/2PG7vASUT5pCMZu.png)
+    * 更关注视频中间区域
+    * 多分辨率
+  * 结果
+    * ![image-20220424141730787](https://s2.loli.net/2022/04/24/jzeklgF5C8xi7Sp.png)
+  * 效果不好，但做了很多基础性的尝试，提出了`spot 1 million`数据集
+  * **如何更好处理时间信息**
+
+* 双流
+* 3D CNN
+* video Transformer(该综述没有，`cvpr 2022`)
 
 ## :sunrise: Contrast Learning
 
@@ -994,4 +1020,3 @@ $$
   * 随机初始化矩阵无限接近一个置换矩阵
 
 * [具体公式](https://zhuanlan.zhihu.com/p/110951790)
-
