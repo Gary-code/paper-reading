@@ -811,12 +811,12 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 ## :sunrise: Contrast Learning
 
-| 日期     | 标题                                     | 说明 |
-| -------- | ---------------------------------------- | ---- |
-| 04/04/22 | [MoCo](https://arxiv.org/abs/1911.05722) |      |
-|          |                                          |      |
-|          |                                          |      |
-|          |                                          |      |
+| 日期     | 标题                                       | 说明 |
+| -------- | ------------------------------------------ | ---- |
+| 04/04/22 | [MoCo](https://arxiv.org/abs/1911.05722)   |      |
+| 04/26/22 | [SimCLR](https://arxiv.org/abs/2002.05709) |      |
+|          |                                            |      |
+|          |                                            |      |
 
 
 
@@ -983,6 +983,12 @@ $$
 `Based on this motivation, we present Momentum Contrast as described next.`
 
 `Remarkably, in all these tasks, MoCo pre-trained on IG-1B is consistently better than MoCo pre-trained on IN-1M. This shows that MoCo can perform well on this large-scale, relatively uncurated dataset. This represents ascenario towards real-world unsupervised learning.`
+
+### [A Simple Framework for Contrastive Learning of Visual Representations](https://arxiv.org/abs/2002.05709)
+
+> SimCLR
+>
+> * Google 无脑TPU
 
 
 
