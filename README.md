@@ -785,7 +785,7 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 
 
-### [A Comprehensive Study of Deep Video Action Recognition](https://arxiv.org/abs/2012.06567)
+### [A Comprehensive Study of Deep Video Action Recognition (Overview)](https://arxiv.org/abs/2012.06567)
 
 > * 视频理解的综述文章（到2021年）
 > * 近两百篇论文
@@ -793,21 +793,69 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 #### 发展
 
-* Hand-crafted CNN
-  * [cvpr 2014 deep video](https://www.cv-foundation.org/openaccess/content_cvpr_2014/html/Karpathy_Large-scale_Video_Classification_2014_CVPR_paper.html)
-  * 视频与图片不同就是**多了一个时间轴**
-  * ![image-20220424135641060](https://s2.loli.net/2022/04/24/yNHnYx1Mw3zilSQ.png)
-  * ![image-20220424141609324](https://s2.loli.net/2022/04/24/2PG7vASUT5pCMZu.png)
-    * 更关注视频中间区域
-    * 多分辨率
-  * 结果
-    * ![image-20220424141730787](https://s2.loli.net/2022/04/24/jzeklgF5C8xi7Sp.png)
-  * 效果不好，但做了很多基础性的尝试，提出了`spot 1 million`数据集
-  * **如何更好处理时间信息**
+1. Hand-crafted CNN
 
-* 双流
-* 3D CNN
-* video Transformer(该综述没有，`cvpr 2022`)
+   * [cvpr 2014 deep video](https://www.cv-foundation.org/openaccess/content_cvpr_2014/html/Karpathy_Large-scale_Video_Classification_2014_CVPR_paper.html)
+
+   * 视频与图片不同就是**多了一个时间轴**
+
+   * ![image-20220424135641060](https://s2.loli.net/2022/04/24/yNHnYx1Mw3zilSQ.png)
+
+     * ![image-20220424141609324](https://s2.loli.net/2022/04/24/2PG7vASUT5pCMZu.png)
+       * 更关注视频中间区域
+       * 多分辨率
+
+     * 结果
+       * ![image-20220424141730787](https://s2.loli.net/2022/04/24/jzeklgF5C8xi7Sp.png)
+
+   * 效果不好，但做了很多基础性的尝试，提出了`spot 1 million`数据集
+
+   * **如何更好处理时间信息**
+
+2. 双流（光流抽取时间信息）
+   * 可做方向
+     * early fusion [Convolutional Two-Stream Network Fusion for Video Action Recognition](https://arxiv.org/abs/1604.06573)
+       * 什么fusion
+         * 尝试多种fusion
+       * 哪里fusion
+         * ![image-20220507104329178](https://s2.loli.net/2022/05/07/DwsMRTcNa18Jltz.png)
+       * Temporal fusion 时间如何结合
+         * ![image-20220507104418568](https://s2.loli.net/2022/05/07/9XbgO6ny5SpcJf7.png)
+     * 小数据集训练大模型
+     * LSTM时序建模 [Beyond Short Snippets: Deep Networks for Video Classification](https://arxiv.org/abs/1503.08909)
+       * 多种`pooling`发现`conv pooling`效果最好
+       * `LSTM`提升有限，因为`LSTM`应当去学更高级的语义信息，而短视频中语义信息太过接近
+     * 长时间视频理解 简单想法非常有效 [paper](https://arxiv.org/abs/1608.00859)
+       * 视频分段，段中抽帧
+         * ![image-20220507110800197](https://s2.loli.net/2022/05/07/sqNStoFH9JDmOc1.png)
+       * 有用技巧
+         * cross modality pretraining
+           * 光流如何预训练，扩展维度技巧
+         * partial BN
+           * 除了第一层，后面全部冻住BN，防止过拟合
+         * data augmentation
+           * corner cropping 边角裁剪
+           * scale-jittering 改变图片长宽比
+     
+     ```mermaid
+     graph LR
+     
+     deepvideo --> t((two-stream)) --> TSN --> DVOF/TLE全局编码
+     
+     t --> TDD,轨迹堆叠光流
+     t --> Fusion
+     t --> LSTM
+     ```
+   
+3. 3D CNN
+
+> * 光流抽取非常**耗时**！tvl-one算法 一个视频对要0.06s
+>
+> * 而且**不能实时处理**，1/0.06 = 15fps
+
+
+
+4. video Transformer(该综述没有，`cvpr 2022`)
 
 ## :sunrise: Contrast Learning
 
