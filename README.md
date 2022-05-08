@@ -849,13 +849,28 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
    
 3. 3D CNN
 
-> * 光流抽取非常**耗时**！tvl-one算法 一个视频对要0.06s
->
-> * 而且**不能实时处理**，1/0.06 = 15fps
+> * 光流抽取非常**耗时**！tvl-one算法 gpu处理一个视频对要0.06s
+>   * 而且**不能实时处理**，1/0.06 = 15fps
+
+* 3D版本VGG，[C3D](https://arxiv.org/abs/1412.0767) 2015年
+  * 效果低于同期工作，但卖点在**抽特征**上，省时间！
+* [I3D ](https://arxiv.org/abs/1705.07750) 2017年
+  * **Inflated**
+  * 3D, 而且直接利用2D的参数
+  * K400数据集
+* 3D网络如何学习长时间信息（借鉴``Transformer``与``self-attention``）
+  * [Non-local Neural Networks](https://arxiv.org/abs/1711.07971)
+    * spacetime 自注意力取代LSTM了
+  * [SlowFast Networks for Video Recognition](https://arxiv.org/abs/1812.03982)
+    * 大输入小模型，小输入大模型，两个网络分支
 
 
 
 4. video Transformer(该综述没有，`cvpr 2022`)
+
+* [Timesformer](https://arxiv.org/abs/2102.05095) ICML 2021
+  * ![image-20220508115023415](https://s2.loli.net/2022/05/08/1L3dIVPOkyJir6F.png)
+  * ![image-20220508115034789](https://s2.loli.net/2022/05/08/fX3zGbtPpMRTQFl.png)
 
 ## :sunrise: Contrast Learning
 
