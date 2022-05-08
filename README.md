@@ -869,8 +869,10 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 4. video Transformer(该综述没有，`cvpr 2022`)
 
 * [Timesformer](https://arxiv.org/abs/2102.05095) ICML 2021
+  * 可以处理超过1min的长视频
   * ![image-20220508115023415](https://s2.loli.net/2022/05/08/1L3dIVPOkyJir6F.png)
   * ![image-20220508115034789](https://s2.loli.net/2022/05/08/fX3zGbtPpMRTQFl.png)
+  
 
 ## :sunrise: Contrast Learning
 
