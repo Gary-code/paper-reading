@@ -2,7 +2,7 @@
 
 This repository contains a list of tutorials, papers, notes of **Neural Network**. If you found any error, please don't hesitate to open an issue or pull request. I will also add some code and other information of these awesome paper.
 
-------
+[TOC]
 
 
 
