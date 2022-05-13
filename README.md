@@ -10,24 +10,20 @@ This repository contains a list of tutorials, papers, notes of **Neural Network*
 
 | 日期     | 标题                                                         | 说明             |
 | -------- | ------------------------------------------------------------ | ---------------- |
-| 02/13/22 | [AlexNet](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) |                  |
-| 02/13/22 | [ResNet](https://arxiv.org/abs/1512.03385)                   |                  |
+| 02/13/22 | [AlexNet](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) | 深度学习开山之作 |
+| 02/13/22 | [ResNet](https://arxiv.org/abs/1512.03385)                   | 残差神经网络     |
 | 03/18/22 | [Two-Stream](https://proceedings.neurips.cc/paper/2014/file/00ec53c4682d36f5c4359f4ae7bd7ba1-Paper.pdf) | 视频理解开山之作 |
 
 
 
+### AlexNet
 
-
-### [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)
-
-> AlexNet
-
-
+[[NIPS 2012] ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)
 
 * 数据集是1m的图片+1000类别（完整的有8.9m+1万类别）
   * $256 \times 256$的channels数为3的数据集
 
-#### 数据处理
+**数据处理**
 
 * 避免过拟合
   * 数据增强
@@ -36,30 +32,32 @@ This repository contains a list of tutorials, papers, notes of **Neural Network*
 * DropOut
   * 根据后来研究表明就等价一个$l2$正则项
 
-#### 模型训练
+**模型训练**
 
 * 使用ReLU，简单好用
 * SGD
 
 这篇论文写作格式有些不好，没有结论，不过这是深度学习的开创性工作。
 
-### [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
+### ResNet
+
+[[CVPR 2015]Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
 
 > ResNet
 
-#### 提出问题
+**提出问题**
 
 * 为什么深度up，精度下降
 * SGD找不到，并不是overfitting
 
-#### 理论
+**理论**
 
 $f(x) = H(x) + x$
 
 * Shortcut Connections
 * 实际上他没从根本理论上解释为什么这个设计可以解决问题，但作为CV文章还可以接受
 
-#### 实现
+**实现**
 
 * 数据增强
   * [256, 480] resize,随机性更好
@@ -91,7 +89,7 @@ $f(x) = H(x) + x$
 
 
 
-#### 写作
+**写作**
 
 * Abstract：关注重点是什么问题，show了我们大概是什么，数据集上成绩如何
 * Intro：我们的breakthrough+经典放图+提问题，回答问题。结果展示+解释Resnet设计扩充了Abstract。让不敢兴趣或者不是这个领域的人可以戛然而止，非常好
@@ -99,12 +97,14 @@ $f(x) = H(x) + x$
 
 
 
-### [Two-Stream Convolutional Networks for Action Recognition in Videos](https://proceedings.neurips.cc/paper/2014/file/00ec53c4682d36f5c4359f4ae7bd7ba1-Paper.pdf)
+### Two-stream Network
+
+[[NIPS 2014]Two-Stream Convolutional Networks for Action Recognition in Videos](https://proceedings.neurips.cc/paper/2014/file/00ec53c4682d36f5c4359f4ae7bd7ba1-Paper.pdf)
 
 > * 视频理解分类开山之作
 > * 双流神经网络
 
-#### 过去问题
+**过去问题**
 
 * 一个CNN一般学不到这种动作信息，比手工特征还要差20%
 * 既然学不了，我们就教他学
@@ -125,7 +125,7 @@ temp --> 同样放入一个CNN里面去,然后softmax
 
 
 
-#### 痛点
+**痛点**
 
 * 光流
   * 耗时很长很长
@@ -133,7 +133,7 @@ temp --> 同样放入一个CNN里面去,然后softmax
 * 为什么基于动作轨迹的方式比同一位置预测效果为差，这里[CVPR2015 Action Recognition with Trajectory-Pooled Deep-Convolutional Descriptors](https://arxiv.org/abs/1505.04868)解决了
 * 相机移动的影响，手工特征中会考虑这些信息，文章这里只做了最简单的减去均值的方法
 
-#### 影响
+**影响**
 
 * 当模型优化，损失函数调整后仍然无法解决问题的话，那就试着教模型怎么去学！！！
 
@@ -143,27 +143,25 @@ temp --> 同样放入一个CNN里面去,然后softmax
 
 ##  :telescope: NLP
 
-| 日期     | 标题                                                         | 说明 |
-| -------- | ------------------------------------------------------------ | ---- |
-| 02/24/22 | [Transformer](https://arxiv.org/abs/1706.03762)              |      |
-| 02/27/22 | [BERT](https://arxiv.org/abs/1810.04805)                     |      |
-| 03/07/22 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) |      |
-| 03/20/22 | [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) |      |
-| 03/25/22 | [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814) |      |
+| 日期     | 标题                                                         | 说明         |
+| -------- | ------------------------------------------------------------ | ------------ |
+| 02/24/22 | [Transformer](https://arxiv.org/abs/1706.03762)              | 多头注意力   |
+| 02/27/22 | [BERT](https://arxiv.org/abs/1810.04805)                     | 预训练与微调 |
+| 03/07/22 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) | 语言模型     |
+| 03/20/22 | [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) |              |
+| 03/25/22 | [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814) |              |
 
 
 
+### Transformer
 
+[[NIPS 2017] Attention is All you need](https://arxiv.org/abs/1706.03762)
 
-### [Attention is All you need](https://arxiv.org/abs/1706.03762)
-
-> Transformer
-
-#### 特性
+**特性**
 
 * 泛化性好(generalizes well)
 
-#### 技术细节
+**技术细节**
 
 * 做机器翻译的任务
 
@@ -217,40 +215,34 @@ temp --> 同样放入一个CNN里面去,然后softmax
 
   * 在输入当中加入时序信息
 
-
-
-#### 训练
+**训练**
 
 * 正则化：大量Dropout， Label Smoothing 很小
 * 同一词根同一token，字典在两种语言中共享（因为embedding权重一样）
 * 4.5 million句子对
 
-
-
-#### 写作
+**写作**
 
 * 很简洁的一篇文章
 * 没有太多写作技巧
 * 理论解释较为欠缺
 * 要讲好一个故事，为什么做这个事情，设计理念是什么，对文章的思考
 
-
-
-#### 未来展望
+**未来展望**
 
 * 我们对Transformer理论仍在初期阶段
 * 迁移到很多CV的领域也可用
 * 因为人对时序信息是多膜体的，Transformer也努力做到和人类似！
 
+### BERT
 
-
-### [BERT: Pre-training of Deep Bidirectiional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
+[BERT: Pre-training of Deep Bidirectiional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
 
 > BERT， 代表NLP真的可以做预训练了
 >
 > * 过去三年最重要的NLP论文
 
-#### 摘要
+**摘要**
 
 > 这是一篇非常标准的摘要
 
@@ -260,7 +252,7 @@ temp --> 同样放入一个CNN里面去,然后softmax
    1. 绝对精度
    2. 相对精度
 
-#### 前期工作
+**前期工作**
 
 * 任务level
 
@@ -291,7 +283,7 @@ temp --> 同样放入一个CNN里面去,然后softmax
 
   
 
-#### 模型架构
+**模型架构**
 
 ```mermaid
 graph LR
@@ -327,33 +319,31 @@ exp --> SWAG,两句子之间的关系
 
 ```
 
-
-
-#### 展望
+**展望**
 
 * 开启了大模型的开端，亿级别的参数
 * 基于前人工作，但效果非常好
 * 微调可用于很多NLP任务
 
-#### 写作
+**写作**
 
 * 中规中矩的一篇文章
 * 简单，暴力，效果好
 * 要多些贡献了什么，失去了什么
   * 生成类问题使用BERT较难
 
+### GPT系列
 
+#### [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf)
 
-### [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf)
-
-#### Reviews
+**Reviews**
 
 ```mermaid
 graph TB
 大力出奇迹 --17/06--> Transfomer --18/06--> BERT --19/02--> GPT-2 --20/05--> GPT-3 
 ```
 
-#### 解决问题
+**解决问题**
 
 * 无标号数据下预训练，构建与任务相关的输入
 * 利用无监督文本的难点
@@ -361,7 +351,7 @@ graph TB
   * 子任务不一致
 * 基于Transformer解码器，BERT基于Transformer编码器
 
-#### 模型思想
+**模型思想**
 
 * 预训练
 
@@ -384,21 +374,19 @@ graph TB
 
 
 
-### [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
+#### [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
 
 > 如何回应BERT
 
 首先技术路线不能变，仍然坚持要用编码器
 
-
-
-#### 基本思路
+**基本思路**
 
 * 提出更大的数据集
 * 15亿的参数（1.5B）
 * 结果不算很好，但卖点在`zero-shot`,新意度高
 
-#### 训练技巧
+**训练技巧**
 
 * 模型与GPT类似
 * 微调时候差别较大（==也可以看成刚说没了微调，用下面的方法来代替==）
@@ -408,7 +396,7 @@ graph TB
   * 改成`(prompt, text, label)`
     * `prompt`的提示文本可能也会出现在数据集当中，模型可以理解
 
-#### 疑难解答
+**疑难解答**
 
 1. 语言模型其实也是在给序列的条件概率建模，即 ![[公式]](https://www.zhihu.com/equation?tex=p%28s_%7Bn-k%7D%2C+...%2C+s_n%7Cs_1%2C+s_2%2C+...%2Cs_%7Bn-k-1%7D%29)
 2. 任何的有监督任务，其实都是在估计 ![[公式]](https://www.zhihu.com/equation?tex=p%28output%7Cinput%29) ，通常我们会用特定的网络结构去给任务建模，但如果要做通用模型，它需要对 ![[公式]](https://www.zhihu.com/equation?tex=p%28output%7Cinput%2C+task%29) 建模。对于NLP任务的input和output，我们平常都可以用向量表示，而对于task，其实也是一样的。18年已经有研究对task进行过建模了，这种模型的一条训练样本可以表示为 ![[公式]](https://www.zhihu.com/equation?tex=%28translate%5C+to%5C+french%2C+english%5C+text%2C+french%5C+text%29) ，或者表示为 ![[公式]](https://www.zhihu.com/equation?tex=%28answer%5C+the%5C+question%2C+document%2C+question%2C+answer%29) 。也就是说，已经证实了，**以这种数据形式可以有监督地训练一个single model，其实也就是对一个模型进行==有监督的多任务学习==**。
@@ -416,23 +404,23 @@ graph TB
 
 4. 如果以上思想懂了，那文章开始的两个问题就迎刃而解：第一个问题答案就是上面的三点。那单向Transformer和双向Transformer的区别，我认为主要是**目标函数**的区别，因为BERT的Masked language model是对 ![[公式]](https://www.zhihu.com/equation?tex=p%28s_k%7Cs_1%2C+..%2C+s_%7Bk-1%7D%2C+s_%7Bk%2B1%7D%2C+...%2C+s_n%29) 进行建模（**完型填空**），这个建模思想的区别，也就使得目前的BERT无法做 ![[公式]](https://www.zhihu.com/equation?tex=p%28output%7Cinput%2C+task%29) 这样的任务。
 
-#### 数据集
+**数据集**
 
 * `Common Crawl` 中垃圾信息太多
 * 改成使用Reddit网站爬下来45million的link，关于英语翻译法语的数据（详见[论文](https://github.com/Gary-code/paper-reading/blob/main/GPT-2.pdf)）
 
-#### 写作
+**写作**
 
 * 结果并不好，但新意度高，卖点就是`zero-shot`
 * `achieve promising, competetive, and state of the art results depending on task`
 
 
 
-### [GPT-3](https://arxiv.org/abs/2005.14165)
+#### [GPT-3](https://arxiv.org/abs/2005.14165)
 
 > 技术报告共63页，并非正式发表的论文
 
-#### 概览
+**概览**
 
 * 175 billion parameters
 * 不再做微调
@@ -441,16 +429,16 @@ graph TB
 * 玩出花样来了，脸不红心不跳的写出一些文本
 * 大数据集
 
-#### 模型架构
+**模型架构**
 
-##### 预训练
+预训练
 
 ```mermaid
 graph LR
 Pre-training --> 学习大量任务,上下文学习 --> 海量语料库对GPT-3进行无监督预训练 --> 3000亿个token --目的-->模型可以有能力根据截至目前的输入去预测下一个单词
 ```
 
-##### 预训练时候的上下文学习，无微调
+预训练时候的上下文学习，无微调
 
 * zero/one/**few-shot**
   * task description
@@ -478,7 +466,7 @@ Pre-training --> 学习大量任务,上下文学习 --> 海量语料库对GPT-3�
     - 定义：不允许输入任何范例，只允许输入一则任务说明
     - 示例：向模型输入“这个任务要求将中文翻译为英文。销售->”，然后要求模型预测下一个输出应该是什么，正确答案应为“sell”。
 
-#### 训练数据集
+**训练数据集**
 
 > 基于Common Crawl
 >
@@ -493,9 +481,7 @@ Pre-training --> 学习大量任务,上下文学习 --> 海量语料库对GPT-3�
 
 分配不同的采样率进行采样
 
-
-
-#### 训练过程
+**训练过程**
 
 太贵，普通人完全玩不起
 
@@ -518,7 +504,7 @@ Pre-training --> 学习大量任务,上下文学习 --> 海量语料库对GPT-3�
 | Optimization         | **Better** | Worse                |
 | Generalization       | **Better** | Worse                |
 
-#### 影响
+**影响**
 
 * 局限性
   * 文本生成较弱，补全文本很好
@@ -532,7 +518,7 @@ Pre-training --> 学习大量任务,上下文学习 --> 海量语料库对GPT-3�
 * 深远影响
   * 社会各方面
 
-#### 关于GPT的一些思考
+**关于GPT的一些思考**
 
 GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工作，又要读者翻引用文献实在不太好。
 
@@ -543,17 +529,19 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
 
 
 
-### [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374)
+### CodeX
 
-> CodeX
->
+[Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374)
+
 > * GPT-based
-> * 做了微调
+>* 做了微调
 
 * 做了一个评估数据集
 * `BLUE`对代码评估并不好，所以使用了`param@k`的方法，但这个方法没有排序，`k`很大时不是很好
 
-### [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814)
+### AlphaCode
+
+[Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814)
 
 > 打CodeForces，打败一半程序员
 
@@ -565,9 +553,9 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
 
 ## :rocket: Multi-Modal
 
-| 日期     | 标题                                  | 说明 |
-| -------- | ------------------------------------- | ---- |
-| 03/09/22 | [CLIP](https://openai.com/blog/clip/) |      |
+| 日期     | 标题                                  | 说明             |
+| -------- | ------------------------------------- | ---------------- |
+| 03/09/22 | [CLIP](https://openai.com/blog/clip/) | 多模态预训练模型 |
 
 
 
@@ -579,7 +567,7 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
 
 ![image-20220310211940688](https://s2.loli.net/2022/03/10/SPuqeMXznkbRgrp.png)
 
-#### 概览
+**概览**
 
 * 2021/02提出，方法简单，效果超好
 * 衍生出很多有趣的应用
@@ -587,7 +575,7 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
 
 
 
-#### Abstract
+**Abstract**
 
 * 当前视觉系统的问题，有固定的的类别数量
 * 文章工作，从**文本中得到监督的信号**
@@ -597,7 +585,7 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
   * CLIP怒刷了30个数据集，其在ImageNet上的准确度居然与ResNet-50一致
   * 但其迁移性远远超越其他模型，转移到其他任务上，其他模型基本就是在乱猜了
 
-#### Introduction & Motivating Work
+**Introduction & Motivating Work**
 
 > 本部分介绍了一些相关工作的发展
 
@@ -631,7 +619,7 @@ eno --改进--> 加大数据规模
 加大数据规模 --结果--> 30个数据集当中结果表现很好,而且模型更加文件,计算更高效
 ```
 
-#### Approach
+**Approach**
 
 ```mermaid
 graph LR
@@ -670,7 +658,7 @@ loss_t = cross_entropy_loss(logits, labels, axis=1)
 loss = (loss_i + loss_t)/2
 ```
 
-#### Summary
+**Summary**
 
 * Limitation部分写得很好，可以多学习
 * 一篇$100 \times 100 \times 100$的论文，不过确实很长
@@ -683,21 +671,23 @@ loss = (loss_i + loss_t)/2
 
 ## :framed_picture: CV
 
-| 日期     | 标题                                                         | 说明                   |
-| -------- | ------------------------------------------------------------ | ---------------------- |
-| 03/30/22 | [ViT](ViT)                                                   |                        |
-| 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750)                      |                        |
-| 04/15/22 | [Trajectory-Pooled features](https://arxiv.org/abs/1505.04868) | 解决轨道预测的视频问题 |
-| 04/24/22 | [Overview of vedio](https://arxiv.org/abs/2012.06567)        |                        |
+| 日期     | 标题                                                         | 说明               |
+| -------- | ------------------------------------------------------------ | ------------------ |
+| 03/30/22 | [ViT](ViT)                                                   | Vision Transformer |
+| 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750)                      | 3D CNN             |
+| 04/15/22 | [Trajectory-Pooled features](https://arxiv.org/abs/1505.04868) | 视频动作轨道检测   |
+| 04/24/22 | [Overview of vedio](https://arxiv.org/abs/2012.06567)        | 为CVPR 2020准备    |
 
-### [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](ViT)
+### ViT
+
+[[ICCV 2021] An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](ViT)
 
 > Vision Transformer
 >
 > * Transformer 用在CV领域
 > * ICCV 21 最佳论文
 
-#### Mindmap
+**Mindmap**
 
 ```mermaid
 graph LR
@@ -708,7 +698,7 @@ all --之前工作--> 特征图,窗口,轴注意力等 --> 太难训练了
 
 ```
 
-#### 模型
+**模型**
 
 * 论文示意图非常清楚
 * 核心：图片变成token
@@ -718,9 +708,7 @@ graph LR
 ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入CLS分类字符变成197*768 --位置编码--> 位置编码为每个patch一个可学习的向量,直接sum!,变成197*768 --> 多头注意力
 ```
 
-
-
-#### 写作
+**写作**
 
 * 摘要简短易懂
 * 导言写得很标准
@@ -740,13 +728,13 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
       * `DETR`彻底改变出框的规则！`ViT-RCNN`则是迁移到目标检测上
     * 更大`ViT`，自己填坑
 
-### **[Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset](https://arxiv.org/abs/1705.07750)**
+### I3D
 
-> I3D
->
+[[CVPR 2015] Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset](https://arxiv.org/abs/1705.07750)
+
 > * 目前到底用`3D`, `2D`, 还是`Transformer`在视频上还是没有定论！(2022)
 
-#### 贡献
+**贡献**
 
 * `Kinetics`数据集
   * 做视频必测数据集
@@ -754,21 +742,21 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 * 模型
   * 双流 + 3D
 
-#### 对比以往工作
+**对比以往工作**
 
 * ![image-20220419175236619](https://s2.loli.net/2022/04/19/FhM5iHS4LXntgRd.png)
   * CNN + LSTM
   * 3D CNN
   * 双流神经网络
 
-#### 训练方法与技巧
+**训练方法与技巧**
 
 * `Inflated` 将`2D`的模型直接用到`3D`上, 不用自己再花心思设计网络架构
 * `2D`预训练的模型参数直接运用到`3D`上，如何使用:
   * 时间维度 $\times N$
   * 可见[代码](https://github.com/dmlc/gluon-cv/blob/master/gluoncv/model_zoo/action_recognition/i3d_resnet.py)
 
-#### 写作
+**写作**
 
 * 为了验证数据集的有效性，和分析过去数据集的不足的地方。需要benmark一下以前的方法
   * 在`Kinetics`数据集上用过去的方法进行预训练
@@ -777,21 +765,23 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
     * 验证了过去数据集太小了，体现不出来深度学习间**不同模型之间的差异**！
   * 顺理成章总结过去三类方法提出文章的模型(**双流 + 3D**， 如上图`e`所示。)
 
-### [Action Recognition with Trajectory-Pooled Deep-Convolutional Descriptors](https://arxiv.org/abs/1505.04868)
-
-> I3D
->
-> * 3D卷积神经网络
 
 
+### Trajectory-Pooled
 
-### [A Comprehensive Study of Deep Video Action Recognition (Overview)](https://arxiv.org/abs/2012.06567)
+[[CVPR 2015] Action Recognition with Trajectory-Pooled Deep-Convolutional Descriptors](https://arxiv.org/abs/1505.04868)
+
+
+
+### Overview
+
+[[CVPR 2020] A Comprehensive Study of Deep Video Action Recognition (Overview)](https://arxiv.org/abs/2012.06567)
 
 > * 视频理解的综述文章（到2021年）
 > * 近两百篇论文
 > * 视频动作识别是very hot topic
 
-#### 发展
+**发展**
 
 1. Hand-crafted CNN
 
@@ -876,27 +866,27 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 ## :sunrise: Contrast Learning
 
-| 日期     | 标题                                       | 说明 |
-| -------- | ------------------------------------------ | ---- |
-| 04/04/22 | [MoCo](https://arxiv.org/abs/1911.05722)   |      |
-| 04/26/22 | [SimCLR](https://arxiv.org/abs/2002.05709) |      |
-|          |                                            |      |
-|          |                                            |      |
+| 日期     | 标题                                       | 说明              |
+| -------- | ------------------------------------------ | ----------------- |
+| 04/04/22 | [MoCo](https://arxiv.org/abs/1911.05722)   | 动量对比学习+队列 |
+| 04/26/22 | [SimCLR](https://arxiv.org/abs/2002.05709) |                   |
+|          |                                            |                   |
+|          |                                            |                   |
 
 
 
-### [Momentum Contrast for Unsupervised Visual Representation Learning](https://arxiv.org/abs/1911.05722)
+### MoCo
 
-> MoCo: 动量对比学习, 2020 CVPR
+[[CVPR 2020] Momentum Contrast for Unsupervised Visual Representation Learning](https://arxiv.org/abs/1911.05722)
+
+> 动量对比学习
 >
 > * 对比学习简单好用且强大
 > * 无监督学习真的可以
 > * 对比学习相关讲解[博客链接](https://muyuuuu.github.io/2021/12/28/SSL-intro/)
 > * 本文真的是细节满满！！！
 
-
-
-#### 什么是对比学习(Contrast Learning)
+**什么是对比学习(Contrast Learning)**
 
 * 只需要哪几个样本相似，或者说哪几个特征函数在相邻的区域里
 * 自监督学习，通过巧妙设计代理任务来**定义规则**进行**正负样本的划分**
@@ -904,16 +894,14 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
     * $N$张无标注的图片当中，对$x_i$进行Tranformation(crop和augmentation) => $x^{1}_i$,$x^{1}_2$...。他们之间为正样本
     * 那么负样本就是其他所有其他的图片$x_j,j \ne i$
 
-#### 摘要
+**摘要**
 
 * 介绍我们的做法：就是一个字典查询问题
   * 队列实现
   * 移动平均的encoder
 * 结果相当惊人，在下游任务中表现及其出色
 
-
-
-#### 引言
+**引言**
 
 ```mermaid
 graph LR
@@ -925,7 +913,7 @@ why --> image:high-dimensional-space&not-structured
 Ours --> q+k --> 为什么保证large+consistent的猜想 --做法--> 大的,一致的字典with对比损失函数 --> 介绍代理任务 --> 买结果
 ```
 
-#### 相关工作
+**相关工作**
 
 1. loss
 
@@ -942,7 +930,7 @@ Ours --> q+k --> 为什么保证large+consistent的猜想 --做法--> 大的,一
       * 上色
       * 伪标签......
 
-#### 方法
+**方法**
 
 ![image-20220405214832225](https://s2.loli.net/2022/04/05/H43OC1pFMPWIZQb.png)
 
@@ -1012,7 +1000,7 @@ $$
 
   
 
-#### 实验
+**实验**
 
 > 本文做的实验非常有说服力，证明`MoCo`非常优秀。
 
@@ -1029,7 +1017,7 @@ $$
     * instance segmentation
     * semantic segmentation
 
-#### 结论与讨论
+**结论与讨论**
 
 * 结果好
 * 但是数据集大了提升会比较学一些
@@ -1037,7 +1025,7 @@ $$
 
 
 
-#### 写作
+**写作**
 
 在介绍动量对比学习前，写了一段承上启下，再次强调**研究动机**，**为什么提出MoCo**，很好的写作方式。
 
@@ -1049,28 +1037,28 @@ $$
 
 `Remarkably, in all these tasks, MoCo pre-trained on IG-1B is consistently better than MoCo pre-trained on IN-1M. This shows that MoCo can perform well on this large-scale, relatively uncurated dataset. This represents ascenario towards real-world unsupervised learning.`
 
-### [A Simple Framework for Contrastive Learning of Visual Representations](https://arxiv.org/abs/2002.05709)
+### SimCLR
 
-> SimCLR
->
+[[ICML 2020] A Simple Framework for Contrastive Learning of Visual Representations](https://arxiv.org/abs/2002.05709)
+
 > * Google 无脑TPU
 
 
 
 ## :pick: Other Related Topic
 
-| 日期     | 标题                                         | 说明 |
-| -------- | -------------------------------------------- | ---- |
-| 04/21/22 | [Sinkhorn](https://arxiv.org/abs/1802.08665) |      |
-|          |                                              |      |
-|          |                                              |      |
-|          |                                              |      |
+| 日期     | 标题                                         | 说明     |
+| -------- | -------------------------------------------- | -------- |
+| 04/21/22 | [Sinkhorn](https://arxiv.org/abs/1802.08665) | 排序网络 |
+|          |                                              |          |
+|          |                                              |          |
+|          |                                              |          |
 
-### [Learning Latent Permutations with Gumbel-Sinkhorn Networks](https://arxiv.org/abs/1802.08665)
+### Sinkhorn Network
 
-> ICML 2018
+[[ICML 2018] Learning Latent Permutations with Gumbel-Sinkhorn Networks](https://arxiv.org/abs/1802.08665)
 
-### 思路
+**思路**
 
 * Gumbel-Sinkhorn的基本思路是
 
