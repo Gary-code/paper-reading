@@ -1079,3 +1079,11 @@ $$
   * 随机初始化矩阵无限接近一个置换矩阵
 
 * [具体公式](https://zhuanlan.zhihu.com/p/110951790)
+
+
+
+### Pathways
+
+* Google提出的下一代AI计算框架
+* 和谷歌的`tensorflow`和`TPU`深度绑定
+* [related blog](https://blog.google/technology/ai/introducing-pathways-next-generation-ai-architecture/)
