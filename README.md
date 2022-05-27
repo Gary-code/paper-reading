@@ -173,7 +173,9 @@ temp --> 同样放入一个CNN里面去,然后softmax
     * 输入 dimension: $d_{model} = 512$
     * Layer normalization
 
-    <img src="https://s2.loli.net/2022/02/23/GaZ4JjsrN1uwIhF.png" alt="image-20220223103024608" style="zoom: 25%;" />
+    ![image-20220528005607501](https://s2.loli.net/2022/05/28/krEtjwd4PRc8CAh.png)
+
+    
 
   * Decoder
 
