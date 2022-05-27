@@ -773,7 +773,7 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 
 
-### Overview
+### Video Overview
 
 [[CVPR 2020] A Comprehensive Study of Deep Video Action Recognition (Overview)](https://arxiv.org/abs/2012.06567)
 
@@ -1047,12 +1047,12 @@ $$
 
 ## :pick: Other Related Topic
 
-| 日期     | 标题                                         | 说明     |
-| -------- | -------------------------------------------- | -------- |
-| 04/21/22 | [Sinkhorn](https://arxiv.org/abs/1802.08665) | 排序网络 |
-|          |                                              |          |
-|          |                                              |          |
-|          |                                              |          |
+| 日期     | 标题                                                         | 说明       |
+| -------- | ------------------------------------------------------------ | ---------- |
+| 04/21/22 | [Sinkhorn](https://arxiv.org/abs/1802.08665)                 | 排序网络   |
+| 05/20/22 | [Pathway](https://arxiv.org/pdf/2203.12533.pdf)              | AI系统方向 |
+| 05/26/22 | [GPipe](https://papers.nips.cc/paper/2019/file/093f65e080a295f8076b1c5722a46aa2-Paper.pdf) | 流水线并行 |
+|          |                                                              |            |
 
 ### Sinkhorn Network
 
@@ -1082,8 +1082,46 @@ $$
 
 
 
-### Pathways
+### [Pathways](https://arxiv.org/pdf/2203.12533.pdf)
 
 * Google提出的下一代AI计算框架
 * 和谷歌的`tensorflow`和`TPU`深度绑定
 * [related blog](https://blog.google/technology/ai/introducing-pathways-next-generation-ai-architecture/)
+
+
+
+### Gpipe
+
+[[NIPS 2019] GPipe: Efficient Training of Giant Neural Networks using Pipeline Parallelism](https://papers.nips.cc/paper/2019/file/093f65e080a295f8076b1c5722a46aa2-Paper.pdf)
+
+**基本概要**
+
+* 流水线并行Pipeline Parallelism（这是**模型并行**的一种）
+* 加速器的显存在过去几年都没有提升，因为其带宽是很高的，显存提升成本很贵
+* 模型并行存在问题，时间没有减少，只能说是增大了内存
+
+**方法**
+
+* 利用Bubble的方法 $F_{d}{t}$, 在模型并行过程中，再把数据切成$M$份
+
+  ![image-20220528003050085](https://s2.loli.net/2022/05/28/Kk7ZHcjP6pWMFmv.png)
+
+**问题来了，显存不够存储怎么办？**
+
+* 计算时间来换取空间
+* 不保留**前向过程**当中的中间变量，每次需要时候都会重新计算
+
+**结果分析**
+
+* 对于CNN这种网络，由于不是每一层的内存使用量都保持一致，所以可能在某一个GPU上会出现显存使用率的瓶颈
+* 对于Transformer来说，每一层较为平均，因此，GPU的数量与模型大小较为**线性**
+
+**写作**
+
+* 令人有点意外哈哈：其实一些**局限性的地方也可以作为结论当中的特征**来写。(下面2，3点其实看起来都像是局限性)
+
+`1) Efficiency: Using a novel batch-splitting pipelining algorithm, GPipe achieves almost linear speedup with the number of devices. `
+
+`2) Flexibility: GPipe supports any sequential neural networks. `
+
+`3) Reliability: GPipe utilizes synchronous gradient descent and guarantees consistent training regardless of the number of partitions.`
