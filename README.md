@@ -679,6 +679,7 @@ loss = (loss_i + loss_t)/2
 | 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750)                      | 3D CNN             |
 | 04/15/22 | [Trajectory-Pooled features](https://arxiv.org/abs/1505.04868) | 视频动作轨道检测   |
 | 04/24/22 | [Overview of vedio](https://arxiv.org/abs/2012.06567)        | 为CVPR 2020准备    |
+| 05/31/22 | [Swin Transformer](https://arxiv.org/pdf/2103.14030.pdf)     | ICCV2021最佳论文   |
 
 ### ViT
 
@@ -729,6 +730,36 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
     * 迁移到目标检测 `ViT-RCNN`+`DETR(2020)`
       * `DETR`彻底改变出框的规则！`ViT-RCNN`则是迁移到目标检测上
     * 更大`ViT`，自己填坑
+
+### Swin Transfromer
+
+[[ICCV 2021 best paper] Swin Transformer: Hierarchical Vision Transformer using Shifted Windows](https://arxiv.org/pdf/2103.14030.pdf)
+
+**动机**
+
+* 如何类似CNN，解决`ViT`归纳偏置问题
+
+  ![image-20220531171949962](https://s2.loli.net/2022/05/31/ar1pTH5WctE4R8d.png)
+
+**思想**
+
+![image-20220531171725222](https://s2.loli.net/2022/05/31/3jWuYF8L2vQgI4h.png)
+
+* patch merging
+
+  ![image-20220531105724864](https://s2.loli.net/2022/05/31/1tbdmDPCZrkNH4L.png)
+
+* Shifted Window based self-attention
+
+  * 技巧
+
+    * 巧妙的掩码
+
+      ![image-20220531172348414](https://s2.loli.net/2022/05/31/Pvs1ZNSBagtD8UW.png)
+
+    * [相对位置编码](https://zhuanlan.zhihu.com/p/105001610)
+
+
 
 ### I3D
 
@@ -858,7 +889,7 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 
 
-4. video Transformer(该综述没有，`cvpr 2022`)
+4. video Transformer(该综述没有)
 
 * [Timesformer](https://arxiv.org/abs/2102.05095) ICML 2021
   * 可以处理超过1min的长视频
