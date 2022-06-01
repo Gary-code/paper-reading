@@ -735,6 +735,8 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 [[ICCV 2021 best paper] Swin Transformer: Hierarchical Vision Transformer using Shifted Windows](https://arxiv.org/pdf/2103.14030.pdf)
 
+> [胡瀚博士解读论文](https://www.bilibili.com/video/BV1hQ4y1e7js?spm_id_from=333.337.search-card.all.click)
+
 **动机**
 
 * 如何类似CNN，解决`ViT`归纳偏置问题
@@ -758,6 +760,26 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
       ![image-20220531172348414](https://s2.loli.net/2022/05/31/Pvs1ZNSBagtD8UW.png)
 
     * [相对位置编码](https://zhuanlan.zhihu.com/p/105001610)
+  
+  **写作**
+  
+  * 实验写得非常好
+  * 实验设计也很好
+  
+  ```mermaid
+  graph LR
+  th((设计思路)) --> 是否对各种CV任务适用 --> 多个数据集
+  th --> three((三个层次)) --> 图像,ImageNet-1K
+  three --> Region,COCO
+  three --> 像素级别,ADE20K
+  
+  com((实验比较)) --> 系统级别比较 --让大家拥抱Transformer--> 与过去CNN相比
+  com --> 骨干网络级别比较 --> 使用不同的检测器 --> 返现Transformer都要比CNN的网络效果要好
+  
+  ab((消融实验)) --> 验证Swin-Transformer的每个设计是否有效
+  ```
+  
+  
 
 
 
