@@ -930,14 +930,14 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
   * ![image-20220508115034789](https://s2.loli.net/2022/05/08/fX3zGbtPpMRTQFl.png)
   
 
-## :sunrise: Contrast Learning
+## :sunrise: Contrastive Learning
 
-| 日期     | 标题                                       | 说明              |
-| -------- | ------------------------------------------ | ----------------- |
-| 04/04/22 | [MoCo](https://arxiv.org/abs/1911.05722)   | 动量对比学习+队列 |
-| 04/26/22 | [SimCLR](https://arxiv.org/abs/2002.05709) |                   |
-|          |                                            |                   |
-|          |                                            |                   |
+| 日期     | 标题                                       | 说明                           |
+| -------- | ------------------------------------------ | ------------------------------ |
+| 04/04/22 | [MoCo](https://arxiv.org/abs/1911.05722)   | 动量对比学习+队列              |
+| 04/26/22 | [SimCLR](https://arxiv.org/abs/2002.05709) |                                |
+| 06/03/22 | Overview                                   | 百花齐放->CV双雄->不使用负样本 |
+|          |                                            |                                |
 
 
 
@@ -952,7 +952,7 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 > * 对比学习相关讲解[博客链接](https://muyuuuu.github.io/2021/12/28/SSL-intro/)
 > * 本文真的是细节满满！！！
 
-**什么是对比学习(Contrast Learning)**
+**什么是对比学习(Contrastive Learning)**
 
 * 只需要哪几个样本相似，或者说哪几个特征函数在相邻的区域里
 * 自监督学习，通过巧妙设计代理任务来**定义规则**进行**正负样本的划分**
@@ -1103,13 +1103,74 @@ $$
 
 `Remarkably, in all these tasks, MoCo pre-trained on IG-1B is consistently better than MoCo pre-trained on IN-1M. This shows that MoCo can perform well on this large-scale, relatively uncurated dataset. This represents ascenario towards real-world unsupervised learning.`
 
+引言写的非常好，明显高人一等。归纳能力太强了！
+
 ### SimCLR
 
 [[ICML 2020] A Simple Framework for Contrastive Learning of Visual Representations](https://arxiv.org/abs/2002.05709)
 
-> * Google 无脑TPU
+> * **简单**暴力效果好
+> * Google 无脑TPU，所以可以使用超级大batch size
+
+**关键思想**
+
+* 一般对比学习的特征维度最后都可以使用`128-d`的小维度，因为实验表明再高再低也没什么大影响了
+* 只使用了一个编码器
+* 编码器**后面**加进去一个`MLP`层，让实验效果上升了10个点。再传进去训练
+  * 但这个MLP层在做下游任务时候去掉，为了和前人工作公平对比
+* 使用了更多的数据争强
+
+**写作**
+
+* 实验非常详细
+* 贡献似乎看起来前人都有写，那么这里就丰富实验，以数据让读者佩服
+
+```python
+We note that almost all individual components of our framework have appeared in previous work, although the specific instantiations may be different. The superiority of our framework relative to previous work is not explained by any single design choice, but by their composition. We provide a comprehensive comparison of our design choices with those of previous work in Appendix C.
+```
 
 
+
+### Overview
+
+```mermaid
+graph LR
+百花齐放 --> CV双雄 --> 不用负样本 --> Transformer
+```
+
+* 百花齐放
+
+  * [[CVPR 2018] Unsupervised Feature Learning via Non-Parametric Instance-level Discrimination](https://arxiv.org/abs/1805.01978)
+
+    * 提出个体判别任务
+    * 计算**NCE loss**
+    * 使用memory bank（超大字典）
+    * **超参数**很好，被后面工作所延用
+
+  * [[CVPR 2019] Unsupervised Embedding Learning via Invariant and Spreading Instance Feature](https://arxiv.org/abs/1904.03436)
+
+    * SimCLR的前身，所有正负样本都选自一个mini-batch当中（但没有TPU，负样本数量偏少）
+      * 无需设计而外的数据结构来进行存储
+    * 使用**同一个编码器**来端到端学习
+
+  * [Representation Learning with Contrastive Predictive Coding](https://arxiv.org/abs/1807.03748)
+
+    * 使用**生成式**的代理任务
+
+      ![image-20220603233956228](https://s2.loli.net/2022/06/03/1wyYVeTHfMKSpzc.png)
+
+  * [Contrastive Multiview Coding](https://arxiv.org/abs/1906.05849)
+
+    * 多种视角（view）下进行对比学习（不同的定义正样本方式）![image-20220603234149966](https://s2.loli.net/2022/06/03/eqYDl51Cvr6WTjA.png)
+    * 但这种情况下，需要多个编码器来学习（or Transformer可能可以达到大统一）
+
+* CV双雄
+
+  > `MoCo`和`SimCLR`不再过多解释，详见上面的精读讲解
+
+  
+
+  
 
 ## :pick: Other Related Topic
 
