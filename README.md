@@ -1242,7 +1242,7 @@ graph LR
 
 ### Sinkhorn Network
 
-[[ICML 2018] Learning Latent Permutations with Gumbel-Sinkhorn Networks](https://arxiv.org/abs/1802.08665)
+[[ICLR 2018] Learning Latent Permutations with Gumbel-Sinkhorn Networks](https://arxiv.org/abs/1802.08665)
 
 **思路**
 
