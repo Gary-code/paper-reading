@@ -1208,6 +1208,8 @@ graph LR
 
       * 不需要负样本，没有动量编码器，没有大bs仍然可以训练（trick拿掉仍然可以训练）
 
+      * 使用了stop gradient的方法，文章总结得很透测，可以去看一下！
+
         ![image-20220604165443267](https://s2.loli.net/2022/06/04/avFnKTVYHer9gWM.png)
 
     * 总结孪生网络
