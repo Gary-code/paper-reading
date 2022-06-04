@@ -1168,9 +1168,66 @@ graph LR
 
   > `MoCo`和`SimCLR`不再过多解释，详见上面的精读讲解
 
-  
+  * [MoCo v2](https://arxiv.org/abs/2003.04297)
 
-  
+    * 结合了SimCLR的trick
+    * 而且一台v100的8卡机在两天半当中可以训练完
+
+  * [SimCLR v2](https://arxiv.org/abs/2006.10029)
+
+    * 通过小部分标签的样本进行有监督微调，可以生成teacher模型
+
+    * 使用teacher模型生成为标签再，使用student模型在无标签数据上进行预测
+
+      ![image-20220604163650242](https://s2.loli.net/2022/06/04/ZcezbqltV5osH4I.png)
+
+    * 更多的trick
+
+* 不使用负样本
+
+  * [[NIPS 2020] Unsupervised Learning of Visual Features by Contrasting Cluster Assignments](https://arxiv.org/abs/2006.09882)
+
+    * 使用聚类中心（$K=300$）来进行相互预测
+
+      ![image-20220604164035546](https://s2.loli.net/2022/06/04/f6EghHX8vDoJcqY.png)
+
+    * **Trick**
+
+      * 相结合图片局部和全局的信息，使用**Multi-crop**进行数据增强。事实证明这个trick对其他对比学习方法也很好用。
+
+  * [BYOL](https://arxiv.org/pdf/2006.07733.pdf)
+
+    * 完全使用正样本，自己预测自己的思路。网络结构是孪生对称的，但是参数并不共享。直接算`MAE loss`![image-20220604164424445](https://s2.loli.net/2022/06/04/GVNwqtxuEf2Km8l.png)
+    * 为什么没有负样本约束仍然不会出现模型坍塌呢？
+      * MLP当中有BN操作
+      * BN对模型初始化是很关键的！详细解释可见[BYOL works even without batch statistics](https://arxiv.org/abs/2010.10241)
+
+  * [SimSiam](https://arxiv.org/abs/2011.10566)
+
+    * 总结性工作
+
+      * 不需要负样本，没有动量编码器，没有大bs仍然可以训练（trick拿掉仍然可以训练）
+
+        ![image-20220604165443267](https://s2.loli.net/2022/06/04/avFnKTVYHer9gWM.png)
+
+    * 总结孪生网络
+
+    ![image-20220604165527147](https://s2.loli.net/2022/06/04/lQ3rNxaDpj5Bmc1.png)
+
+    * 实验结果对比![image-20220604165624754](https://s2.loli.net/2022/06/04/Puq3aYsQv7cIbr5.png)
+      * MoCo v2仍然是比较**稳健**的 。
+
+* ViT时代
+
+  * [MoCo v3](https//arxiv.org/abs/2104.02057)
+    * 把CNN的主干网络换成ViT
+    * 如何提高ViT训练的稳定性
+      * **random patch** 的初始化避免训练当中出现波谷的问题。
+
+
+  * [Emerging Properties in Self-Supervised Vision Transformers](https://arxiv.org/pdf/2104.14294.pdf)
+
+    ![image-20220604165110872](https://s2.loli.net/2022/06/04/rMfQ52WLP9x7kjb.png)
 
 ## :pick: Other Related Topic
 
