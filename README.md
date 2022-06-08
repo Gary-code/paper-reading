@@ -1311,3 +1311,36 @@ graph LR
 `2) Flexibility: GPipe supports any sequential neural networks. `
 
 `3) Reliability: GPipe utilizes synchronous gradient descent and guarantees consistent training regardless of the number of partitions.`
+
+
+
+### [Megatron-LM](https://arxiv.org/abs/1909.08053)
+
+> 模型并行
+>
+> * 称为张量并行比较好
+
+**思想**：
+
+* 层中进行切开，张量并行
+* 更加简单，但是牺牲了通用性（只能用在Transformer）
+* 前向过程
+
+![[System] Megatron-LM-5](https://s2.loli.net/2022/06/08/pz19vcPVLX8Wdte.jpg)
+
+
+
+**写作**：
+
+写贡献（这样写也不一定好）
+
+* 通用套路：
+  * 简单高效的模型
+  * 性能效果如何
+* 其他！！
+  * 针对某一个模型**小改动**细节（同属实验）
+  * **结果**有多好（同属实验）
+  * 开源代码
+
+
+
