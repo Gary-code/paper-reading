@@ -1324,11 +1324,13 @@ graph LR
 
 * 层中进行切开，张量并行
 * 更加简单，但是牺牲了通用性（只能用在Transformer）
-* 前向过程
+* 前向过程于GPU切分
 
 ![[System] Megatron-LM-5](https://s2.loli.net/2022/06/08/pz19vcPVLX8Wdte.jpg)
 
+* 改进Bert当中的`Layer Norm`，让其不会`loss`炸掉(a, b 分别为修改前后)：
 
+![image-20220609170446908](https://s2.loli.net/2022/06/09/zNVvok7YJrcwRi5.png)
 
 **写作**：
 
@@ -1341,6 +1343,8 @@ graph LR
   * 针对某一个模型**小改动**细节（同属实验）
   * **结果**有多好（同属实验）
   * 开源代码
+
+### Zero
 
 
 
