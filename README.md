@@ -673,13 +673,14 @@ loss = (loss_i + loss_t)/2
 
 ## :framed_picture: CV
 
-| 日期     | 标题                                                         | 说明               |
-| -------- | ------------------------------------------------------------ | ------------------ |
-| 03/30/22 | [ViT](ViT)                                                   | Vision Transformer |
-| 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750)                      | 3D CNN             |
-| 04/15/22 | [Trajectory-Pooled features](https://arxiv.org/abs/1505.04868) | 视频动作轨道检测   |
-| 04/24/22 | [Overview of vedio](https://arxiv.org/abs/2012.06567)        | 为CVPR 2020准备    |
-| 05/31/22 | [Swin Transformer](https://arxiv.org/pdf/2103.14030.pdf)     | ICCV2021最佳论文   |
+| 日期     | 标题                                                         | 说明                      |
+| -------- | ------------------------------------------------------------ | ------------------------- |
+| 03/30/22 | [ViT](ViT)                                                   | Vision Transformer        |
+| 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750)                      | 3D CNN                    |
+| 04/15/22 | [Trajectory-Pooled features](https://arxiv.org/abs/1505.04868) | 视频动作轨道检测          |
+| 04/24/22 | [Overview of vedio](https://arxiv.org/abs/2012.06567)        | 为CVPR 2020准备           |
+| 05/31/22 | [Swin Transformer](https://arxiv.org/pdf/2103.14030.pdf)     | ICCV2021最佳论文          |
+| 06/11/22 | [DETR](https://arxiv.org/abs/2005.12872)                     | 用于目标检测的Transformer |
 
 ### ViT
 
@@ -929,6 +930,80 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
   * ![image-20220508115023415](https://s2.loli.net/2022/05/08/1L3dIVPOkyJir6F.png)
   * ![image-20220508115034789](https://s2.loli.net/2022/05/08/fX3zGbtPpMRTQFl.png)
   
+
+### DETR
+
+[[ECCV 2020] End-to-End Object Detection with Transformers](https://arxiv.org/abs/2005.12872)
+
+> 用在目标检测上的Transformer
+>
+> * 本文写的很好，虽然实验结果42%，比当时的SOTA还要少10%，但贡献极为突出，属于一篇挖坑的论文
+> * 简单好用直接！
+
+**贡献：**
+
+* 端到端的目标检测
+  * 过去工作都需要后处理，如nms去除冗余框
+* Tranfromer
+  * 并且是==并行==出框
+  * 更强的全局建模能力
+    * 所以对大物体会比较友好
+* 目标检测被归纳为一个集合预测的任务
+
+**过去工作：**
+
+* 基于初始的猜测
+* 集合loss
+  * 但由于CNN学出来特征不够强，所以最后都需要用到人工的先验，如`NMS and relation network`
+* RNN 预测
+  * 自回归的预测，不支持并行出框
+* 所以DETR成功还是因为Transformer
+
+**思路：**
+
+* 模型架构概览
+
+  ```mermaid
+  graph LR
+  picture --> CNN --flattern--> Transformer-encoder -- object-query--> de((Transformer-decoder))
+  
+  de --训练--> 二分图匹配loss
+  de --测试--> 直接设置阈值
+  ```
+
+* 前向过程
+
+  * 固定输出`N`个框
+
+    ![image-20220611143224437](https://s2.loli.net/2022/06/11/CVDdxF3gz1kRWPl.png)
+
+* 简单版本代码
+
+  ![image-20220611143327540](https://s2.loli.net/2022/06/11/XxLlT9aVfJouG2k.png)
+
+* 二分图匹配loss（匈牙利算法）
+
+  * 预测分类+预测框（两个FFN）
+
+  * 先用匈牙利算法(`scipy.linear_sum_assignment(cost_matrix)`)从100个中选出对应gt最合理的框（严格一对一）
+
+    * cost_matrix项为$-\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \hat{p}_{\sigma(i)}\left(c_{i}\right)+\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{\mathrm{box}}\left(b_{i}, \hat{b}_{\sigma(i)}\right) $
+
+  * 取出这些框后，再算实际上的loss,同样为分类+预测loss
+    $$
+    \mathcal{L}_{\text {Hungarian }}(y, \hat{y})=\sum^{N}[-\log \hat{p}_{\hat{\sigma}(i)}\left(c_{i}\right)+{\left.\mathbb{1}_{\left\{c_{i} \neq \varnothing\right\}} \mathcal{L}_{\text {box }}\left(b_{i}, \hat{b}_{\hat{\sigma}}(i)\right)\right]}
+    $$
+
+    * 预测loss当中了以前目标检测的$l_1$loss预测大物体时候loss会很大，而DETR对大物体的预测很友好，所以$\mathcal{L}_{\text {box }}$包括$l_1$loss和$IOU$loss
+
+**写作：**
+
+* 虽然结果没有SOTA，但是很有意义。
+* 为此在实验，消融实验还有数据可视化部分这篇文章做得非常非常好，很好解释了他们的模型
+* 句式上也写得非常好，值得精读
+* 另外他们开源的[代码](https://github.com/facebookresearch/detr)真的非常值得阅读！
+
+
 
 ## :sunrise: Contrastive Learning
 
