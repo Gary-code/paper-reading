@@ -1003,6 +1003,12 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 * 句式上也写得非常好，值得精读
 * 另外他们开源的[代码](https://github.com/facebookresearch/detr)真的非常值得阅读！
 
+**局限性：**
+
+* 计算速度慢
+* 只对大框比较友好
+* 在后面的[[ICLR 2020] Deformable DETR](https://arxiv.org/abs/2010.04159)得到解决
+
 
 
 ## :sunrise: Contrastive Learning
