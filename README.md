@@ -1425,7 +1425,32 @@ graph LR
   * **结果**有多好（同属实验）
   * 开源代码
 
-### Zero
+### [Zero](https://arxiv.org/pdf/1910.02054.pdf)
+
+> 主要用于数据并行
+>
+> * 本文提到的MP（模型并行）都是指Megatron那种张量并行
+
+**思路：**
+
+* 混精度训练
+  * Nvidia的卡对半精度训练比较友好（fp16），但是在计算`Adma`优化器的`W`和两个状态时候需要用到fp32，最后再转化为fp16
+* **三种分割方法(zero-1, -2, -3)**
+
+![image-20220618235645482](https://s2.loli.net/2022/06/18/EcU9aMxwKP1RtOJ.png)
 
 
+
+* Zero-R（主要用在`MP`上）,降低中间变量所占用的内存
+  * $P_a$ **Partitioned Activation Checkpointing**
+    * ![image-20220619000818548](https://s2.loli.net/2022/06/19/by8XzMQxAdDitOs.png)
+    * 每个层完整的输入不再需要存在GPU当中！但每次反向的时候都要把完整的输入传一遍
+  * $C_B$ **Constant Size Buffers**
+    * 不用急着发，等Size够大时候再发，超时了也发
+    * 不会浪费带宽
+    * 类似TCP/IP
+    * 其他分布式框架都会实现了这个功能
+  * $M_D$ **Memory Defragmentation**
+    * 对`Pytorch`特有，内存不用了就析构掉
+    * `tensorflow`就不需要这样子，会提前看完整个程序，哪个变量被创建了
 
