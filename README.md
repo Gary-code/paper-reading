@@ -150,6 +150,7 @@ temp --> 同样放入一个CNN里面去,然后softmax
 | 03/07/22 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) | 语言模型     |
 | 03/20/22 | [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) |              |
 | 03/25/22 | [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814) |              |
+| 06/27/22 | [T5](https://arxiv.org/abs/1910.10683)                       | Text-to-text |
 
 
 
@@ -548,6 +549,78 @@ GPT3这篇文章太长了，而且那么长居然不提一下之前的一些工�
 > 打CodeForces，打败一半程序员
 
 
+
+### T5
+
+[[JMLR 2020] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer](https://arxiv.org/abs/1910.10683)
+
+> 超级大模型：Transformer的encoder-decoder框架
+>
+> * 通俗易懂的[博客](https://zhuanlan.zhihu.com/p/88438851)
+
+**思想：**
+
+* 将NLP的所有任务都转换成为Text2text的形式
+
+  * ![img](https://pic2.zhimg.com/80/v2-82deada7be746017fe4d3808b6657af9_720w.jpg)
+  * 比如翻译的时候，加多一个promt给它即可。比如情感分类任务，输入"sentiment：This movie is terrible!"，前面直接加上 “sentiment：”，然后就能输出结果“negative（负面）”。
+  * STS-B（文本语义相似度任务），居然也是直接输出文本，而不是加个连续值输出头。以每 0.2 为间隔，从 1 到 5 分之间分成 21 个值作为输出分类任务。比如上图中，输出 3.8 其实不是数值，而是**一串文本**。
+
+* **用同样的模型，同样的损失函数，同样的训练过程，同样的解码过程来完成所有 NLP 任务**
+
+  
+
+**数据集：（C4）**
+
+>  Common Crawl: 一个公开的网页存档数据集，每个月大概抓取 20TB 文本数据
+
+大概**清理过程**如下：
+
+- 只保留结尾是正常符号的行；
+- 删除任何包含不好的词的页面，具体词表参考**[List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words](https://link.zhihu.com/?target=https%3A//github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words)**库（笔者按：宝藏库，到里面转了一圈，看了看熟悉的几门语言，瞬间涨了不少新姿势 ）；
+- 包含 Javascript 词的行全去掉；
+- 包含编程语言中常用大括号的页面；
+- 任何包含”lorem ipsum（用于排版测试）“的页面；
+- 连续三句话重复出现情况，保留一个。
+
+
+
+**模型选择：**
+
+![img](https://pic2.zhimg.com/80/v2-b1a8d9af6110e6d1b6a7615fc300a229_720w.jpg)
+
+* **Encoder-Decoder 型**，即 Seq2Seq 常用模型，分成 Encoder 和 Decoder 两部分，对于 Encoder 部分，输入可以看到全体，之后结果输给 Decoder，而 Decoder 因为输出方式只能看到之前的。架构代表是 **MASS**
+* **只有decoder**，GPT-2
+* **Prefix LM（Language Model） 型**，可看作是上面 Encoder 和 Decoder 的融合体，一部分如 Encoder 一样能看到全体信息，一部分如 Decoder 一样只能看到过去信息。UniLM
+* 上面三种架构主要不同在于：对注意力机制的不同mask操作：
+  * ![img](https://pic1.zhimg.com/80/v2-b06b504f19febe0f1582f8b162cfbb9c_720w.jpg)
+
+**模型探索：**
+
+```mermaid
+graph LR
+tr((Transformer_encoder-decoder架构)) --> se(一.自监督预训练方法) --完形填空--> Bert-best
+se --从左到右--> GPT2
+se --Deshuffling--> 顺序还原
+tr --> de(二. 破坏文本) --> Mask
+de --> replace-span小段替换-best
+de --drop--> 丢弃掉某些字符
+tr --> 三.文本破坏,百分之15时候最好
+tr --> 四.对大概多长的小段进行破坏,最后发现3结果最好
+
+```
+
+* 自监督的预训练方法example:
+
+![img](https://pic4.zhimg.com/80/v2-f5b13a845911a7f57dec821cfe57713f_720w.png)
+
+* 文本破坏方法example
+
+![img](https://pic4.zhimg.com/80/v2-f5b13a845911a7f57dec821cfe57713f_720w.png)
+
+
+
+* 其他实验探索细节可以见[博客](https://zhuanlan.zhihu.com/p/88438851)
 
 ------
 
