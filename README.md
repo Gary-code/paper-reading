@@ -628,9 +628,10 @@ tr --> 四.对大概多长的小段进行破坏,最后发现3结果最好
 
 ## :rocket: Multi-Modal
 
-| 日期     | 标题                                  | 说明             |
-| -------- | ------------------------------------- | ---------------- |
-| 03/09/22 | [CLIP](https://openai.com/blog/clip/) | 多模态预训练模型 |
+| 日期     | 标题                                                   | 说明                          |
+| -------- | ------------------------------------------------------ | ----------------------------- |
+| 03/09/22 | [CLIP](https://openai.com/blog/clip/)                  | 多模态预训练模型              |
+| 07/11/22 | [DALL-E 2](https://cdn.openai.com/papers/dall-e-2.pdf) | 扩散模型生成图片， 大力出奇迹 |
 
 
 
@@ -739,6 +740,28 @@ loss = (loss_i + loss_t)/2
 * 一篇$100 \times 100 \times 100$的论文，不过确实很长
 
 
+
+### [DALL-E 2](https://cdn.openai.com/papers/dall-e-2.pdf)
+
+> 图像生成干货满满！
+
+* 图像生成技术
+
+![image-20220711103324006](https://s2.loli.net/2022/07/11/BQkoe8Pw19MWC6V.png)
+
+![image-20220711103350957](https://s2.loli.net/2022/07/11/Zk1MqesTfvlGcWI.png)
+
+
+
+* DALL-E 2 模型：
+
+![image-20220711103445143](https://s2.loli.net/2022/07/11/6C12YTtcVhHgn3e.png)
+
+![image-20220711103504981](https://s2.loli.net/2022/07/11/lcDm5SZQIf2rvWO.png)
+
+
+
+**论文写的比较简单，核心的干货都在我的个人笔记里面，可以自行查看！**
 
 ---
 
@@ -957,7 +980,7 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
        * `LSTM`提升有限，因为`LSTM`应当去学更高级的语义信息，而短视频中语义信息太过接近
      * 长时间视频理解 简单想法非常有效 [paper](https://arxiv.org/abs/1608.00859)
        * 视频分段，段中抽帧
-         * ![image-20220507110800197](https://s2.loli.net/2022/05/07/sqNStoFH9JDmOc1.png)
+         * ![image-20220507110800197](https://s2.loli.net/2022/05/07/sqNStoFH9JDmOc1.png) 
        * 有用技巧
          * cross modality pretraining
            * 光流如何预训练，扩展维度技巧
