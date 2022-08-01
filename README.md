@@ -765,6 +765,37 @@ loss = (loss_i + loss_t)/2
 
 **论文写的比较简单，核心的干货都在我的个人笔记里面，可以自行查看！**
 
+
+
+### ViLT
+
+[[ICML 2021 Oral] ViLT: Vision-and-Language Transformer Without Convolution or Region Supervision](https://arxiv.org/pdf/2102.03334.pdf)
+
+**概览：**
+
+* 非常**简单**的多模态学习框架
+  * 不再依赖于目标检测器或者CNN的特征图
+  * 使用更加复杂的fusion方式（`stream`）
+    * `single-stream`就是简单concat模态
+    * `Two-stream`就是分别过两个模态的模型，然后再去fusion
+* 但其实训练时间非常恐怖（64块V100，训练3天）
+
+**思路：**
+
+* 之前工作，还有**我们的工作（最后一个）**
+
+![image-20220801120354489](https://s2.loli.net/2022/08/01/LqDk1xUCHcbp5rN.png)
+
+* 模型架构
+
+![image-20220801120635632](https://s2.loli.net/2022/08/01/VkLewJHN7TIZBKd.png)
+
+* 两个技巧：
+  * Whole Word Masking，整个Token Mask掉
+  * 图像数据增强（`RandAugment`）, 但由于涉及到对其任务，作者去掉color inversion还有cutout的方法
+
+
+
 ---
 
 
