@@ -741,6 +741,50 @@ loss = (loss_i + loss_t)/2
 
 
 
+### CLIP思想迁移串讲
+
+> CLIP的思想可以迁移到很多的任务当中去
+
+* CLIP 回顾
+  * 先在4个亿的图像文本（一般是句子）的数据集上面做预训练。
+  * 推理的时候通过对比学习和`zero-shot`计算出相似度，相似度最高的就是对应的分类
+
+![image-20220902220641025](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220902220641025.png)
+
+#### 图像分割任务
+
+1. [ICLR 2022 LANGUAGE-DRIVEN SEMANTIC SEGMENTATION](https://arxiv.org/pdf/2201.03546.pdf)
+
+* 一般分割的任务和分类的方法是很相似的
+* 实际上**目标函数并不是对比学习**，也不是**无监督学习**的框架
+  * 并**没有把文本当成监督信号**来使用，将会导致**依赖于手工标注的分割mask**（数据集训练量实在太小，手工标注mask非常贵！）
+
+![image-20220902221712618](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220902221712618.png)
+
+* 为什么要用特征图？主要是因为分割任务是**像素级别**的，对比分类任务应该要**升一下维度**。
+
+* 如何训练和测试的？
+  * 先把数据集类别分类为4份，**一份已知，其余三份未知**
+
+2. [CVPR 2022 GroupViT: Semantic Segmentation Emerges from Text Supervision](https://arxiv.org/abs/2202.11094)
+
+* **监督信号来自于文本**，不再依赖于mask
+* 训练：类似于CLIP，使用对比学习的策略
+
+![image-20220902224129556](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220902224129556.png)
+
+* 如何推理
+
+![image-20220902224403143](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220902224403143.png)
+
+#### 目标检测
+
+1. [ICLR 2022 ViLD](https://arxiv.org/pdf/2104.13921.pdf)
+
+
+
+2. [ICLR 2022 GLIP](https://arxiv.org/pdf/2112.03857.pdf)
+
 ### [DALL-E 2](https://cdn.openai.com/papers/dall-e-2.pdf)
 
 > 图像生成干货满满！
