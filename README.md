@@ -777,13 +777,46 @@ loss = (loss_i + loss_t)/2
 
 ![image-20220902224403143](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220902224403143.png)
 
-#### 目标检测
+* 结果比有监督的**低了非常多**，GroupViT**分割已经做得很好了，但是分类错了**！（`CLIP`训练方式其实就是**没办法学到**物体语义信息很模糊的类，如背景类！）
+* `GroupViT`未使用`CLIP`的预训练参数，使用了`CLIP`训练的目标函数。
+
+
+
+#### 目标7检测
 
 1. [ICLR 2022 ViLD](https://arxiv.org/pdf/2104.13921.pdf)
 
+* 核心就是open-vocabulary， 其实就是zero-shot
+
+![image-20220903172618091](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220903172618091.png)
+
+![image-20220903172628773](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220903172628773.png)
+
+2. [CVPR 2022 GLIP](https://arxiv.org/pdf/2112.03857.pdf)
+
+> 目标检测领域的`GroupViT`
+
+* 动机：如何利用**更多训练数据**，利用**vision grounding**数据集
+
+  * 可以将目标检测还有vision grouding合在一起做
+
+* 这两个任务主要就是两个loss: 分类loss(**更关键**) + 定位loss(都**差不多**)
+
+* 目标检测分类loss
+
+  ![image-20220903174502399](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220903174502399.png)
+
+* vision grounding分类loss
+
+![image-20220903174526489](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220903174526489.png)
+
+* 最后就是联合两个任务，算一下什么时候是positive match，什么时候是negative match就好
 
 
-2. [ICLR 2022 GLIP](https://arxiv.org/pdf/2112.03857.pdf)
+
+* 有监督的学习
+
+![image-20220903194707266](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220903194707266.png)
 
 ### [DALL-E 2](https://cdn.openai.com/papers/dall-e-2.pdf)
 
