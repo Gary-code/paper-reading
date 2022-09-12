@@ -628,10 +628,11 @@ tr --> 四.对大概多长的小段进行破坏,最后发现3结果最好
 
 ## :rocket: Multi-Modal
 
-| 日期     | 标题                                                   | 说明                          |
-| -------- | ------------------------------------------------------ | ----------------------------- |
-| 03/09/22 | [CLIP](https://openai.com/blog/clip/)                  | 多模态预训练模型              |
-| 07/11/22 | [DALL-E 2](https://cdn.openai.com/papers/dall-e-2.pdf) | 扩散模型生成图片， 大力出奇迹 |
+| 日期     | 标题                                                         | 说明                          |
+| -------- | ------------------------------------------------------------ | ----------------------------- |
+| 03/09/22 | [CLIP](https://openai.com/blog/clip/)                        | 多模态预训练模型              |
+| 07/11/22 | [DALL-E 2](https://cdn.openai.com/papers/dall-e-2.pdf)       | 扩散模型生成图片， 大力出奇迹 |
+| 09/06/22 | [CLIP 思想迁移论文串讲](https://www.bilibili.com/video/BV1FV4y1p7Lm?spm_id_from=333.337.search-card.all.click&vd_source=c0d79be5d8b0be45f862cc44841ea52d) | 涉及目标检测，语义分割等      |
 
 
 
@@ -879,14 +880,15 @@ loss = (loss_i + loss_t)/2
 
 ## :framed_picture: CV
 
-| 日期     | 标题                                                         | 说明                      |
-| -------- | ------------------------------------------------------------ | ------------------------- |
-| 03/30/22 | [ViT](ViT)                                                   | Vision Transformer        |
-| 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750)                      | 3D CNN                    |
-| 04/15/22 | [Trajectory-Pooled features](https://arxiv.org/abs/1505.04868) | 视频动作轨道检测          |
-| 04/24/22 | [Overview of vedio](https://arxiv.org/abs/2012.06567)        | 为CVPR 2020准备           |
-| 05/31/22 | [Swin Transformer](https://arxiv.org/pdf/2103.14030.pdf)     | ICCV2021最佳论文          |
-| 06/11/22 | [DETR](https://arxiv.org/abs/2005.12872)                     | 用于目标检测的Transformer |
+| 日期     | 标题                                                         | 说明                             |
+| -------- | ------------------------------------------------------------ | -------------------------------- |
+| 03/30/22 | [ViT](ViT)                                                   | Vision Transformer               |
+| 04/01/22 | [I3D](https://arxiv.org/abs/1705.07750)                      | 3D CNN                           |
+| 04/15/22 | [Trajectory-Pooled features](https://arxiv.org/abs/1505.04868) | 视频动作轨道检测                 |
+| 04/24/22 | [Overview of vedio](https://arxiv.org/abs/2012.06567)        | 为CVPR 2020准备                  |
+| 05/31/22 | [Swin Transformer](https://arxiv.org/pdf/2103.14030.pdf)     | ICCV2021最佳论文                 |
+| 06/11/22 | [DETR](https://arxiv.org/abs/2005.12872)                     | 用于目标检测的Transformer        |
+| 09/12/22 | [CycleGAN](https://openaccess.thecvf.com/content_ICCV_2017/papers/Zhu_Unpaired_Image-To-Image_Translation_ICCV_2017_paper.pdf) | 无配对数据的跨领域image-to-image |
 
 ### ViT
 
@@ -1217,12 +1219,39 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 
 
+### CycleGAN
+
+:fire: [[ICCV 2017] Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks](https://openaccess.thecvf.com/content_ICCV_2017/papers/Zhu_Unpaired_Image-To-Image_Translation_ICCV_2017_paper.pdf)
+
+* 动机
+
+  * 目前缺少成对的数据。成对数据收集起来也非常昂贵
+
+  * 某些任务需要大量的数据进行训练，然而目前成对的数据量较小。因此作者想要寻求一种算法，可以学习在没有配对输入输出例子的情况下在域(domain)之间进行转换
+
+* 方法（试图学习两种不同风格图片的映射关系）
+
+![img](https://raw.githubusercontent.com/Gary-code/pic/main/img/v2-517d2f203dfbf896d4e985f0d28273d5_720w.jpg)
+
+* 从数学上讲，如果我们有一个翻译$G：X→Y$和另一个翻译$F：Y→X$，那么G和F应该是相反的，并且两个映射都应该是**双射**。通过将映射$G$和$F$同时训练。
+* 由于对于source的每一个$x_i$会和target的哪个$y_i$配对，所以并增加一个**循环一致性损失**来鼓励 $F(G(x))≈x$ 和 $G(F(y))≈y$，鼓励图像**重构**。
+
+$$
+\begin{aligned}
+\mathcal{L}\left(G, F, D_X, D_Y\right)=& \mathcal{L}_{\mathrm{GAN}}\left(G, D_Y, X, Y\right) \\
+&+\mathcal{L}_{\mathrm{GAN}}\left(F, D_X, Y, X\right) \\
+&+\lambda \mathcal{L}_{\mathrm{cyc}}(G, F),
+\end{aligned}
+$$
+
+
+
 ## :sunrise: Contrastive Learning
 
 | 日期     | 标题                                       | 说明                           |
 | -------- | ------------------------------------------ | ------------------------------ |
 | 04/04/22 | [MoCo](https://arxiv.org/abs/1911.05722)   | 动量对比学习+队列              |
-| 04/26/22 | [SimCLR](https://arxiv.org/abs/2002.05709) |                                |
+| 04/26/22 | [SimCLR](https://arxiv.org/abs/2002.05709) | 对比Moco                       |
 | 06/03/22 | Overview                                   | 百花齐放->CV双雄->不使用负样本 |
 |          |                                            |                                |
 
