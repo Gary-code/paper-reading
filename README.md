@@ -783,7 +783,7 @@ loss = (loss_i + loss_t)/2
 
 
 
-#### 目标7检测
+#### 目标检测
 
 1. [ICLR 2022 ViLD](https://arxiv.org/pdf/2104.13921.pdf)
 
@@ -818,6 +818,83 @@ loss = (loss_i + loss_t)/2
 * 有监督的学习
 
 ![image-20220903194707266](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220903194707266.png)
+
+#### 绘画
+
+[[Sigraph 2022 best paper] CLIPasso: Semantically-Aware Object Sketching](https://arxiv.org/pdf/2202.05822.pdf)
+
+* 图片变成一个**简笔画**
+* 过去大家都是使用固定的数据集，因此生成的简笔画形式风格很受限
+* 问题定义
+
+![image-20220919110143488](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220919110143488.png)
+
+* 贡献
+
+  * Loss 损失函数
+
+    * 保证语义的一致性$L_{\text {semantic }}=\operatorname{dist}\left(\operatorname{CLIP}(\mathcal{I}), \operatorname{CLIP}\left(\mathcal{R}\left(\left\{s_i\right\}_{i=1}^n\right)\right)\right. ,\operatorname{dist}(x, y)=1-\frac{x \cdot y}{\|x\|\cdot \|y\|}$
+
+    * 保证几何的一致性 $L_{\text {geometric }}=\sum_l\left\|\operatorname{CLI} P_l(\mathcal{I})-\operatorname{CLI} P_l\left(\mathcal{R}\left(\left\{s_i\right\}_{i=1}^n\right)\right)\right\|_2^2$
+
+  * 初始化方法
+
+    * `ViT`最后的分类头得到一个`map`后进行显著区域采点
+
+  * 训练速度很快
+    * 一张`v100`在**6分钟**内完成**2000轮**的迭代训练、
+  * 最后生成**三张**简笔画，最后算一下loss后选**最优的一张简笔画**
+
+  ![image-20220919110707076](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220919110707076.png)
+
+* 最大卖点
+
+  * 对什么物体都可以进行绘画
+  * 抽象性很好，即使少一点线也可以画得很好
+
+  ![image-20220919110930773](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220919110930773.png)
+
+* 局限性
+
+  * 图片有背景时候效果不佳
+    * 论文时使用U2Net这样的`automatic mask`先把物体抠出来的，但是这样子就不是end-to-end了
+    * 人作画时auto-regression的，会考虑前一步画的笔画
+    * 笔画数时固定的
+
+#### 视频
+
+[[2021] CLIP4CLIP](https://arxiv.org/abs/2104.08860)
+
+* Clip用来做**视频检索**
+
+  ![image-20220919145106817](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220919145106817.png)
+
+  ![image-20220919145302434](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220919145302434.png)
+
+* 主要提升就是来自于使用了`Clip`
+
+* `mean pooling`的方法可能最好
+
+  * 因为当数据量不大的时候，不需要再微调了, `Clip`就可以很大提高效果了。
+
+* ⚠️ 这种无监督的对**学习率非常敏感**，学习率是最重要的超参。
+
+[[2021] ActionCLIP](https://arxiv.org/abs/2109.08472)
+
+* Clip使用在**视频动作检测**上
+* 对比过去方法
+
+![image-20220919151005803](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220919151005803.png)
+
+* 如何将`Clip`放到视频中来使用
+
+![image-20220919151041222](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220919151041222.png)
+
+* zero-shot & few shot 能力
+
+![image-20220919152754220](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20220919152754220.png)
+
+
 
 ### [DALL-E 2](https://cdn.openai.com/papers/dall-e-2.pdf)
 
@@ -1223,8 +1300,11 @@ ViT((ViT)) --输入--> X((X:196*768)) --线性投影层--> E:768*768 --> 加入C
 
 :fire: [[ICCV 2017] Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks](https://openaccess.thecvf.com/content_ICCV_2017/papers/Zhu_Unpaired_Image-To-Image_Translation_ICCV_2017_paper.pdf)
 
-* 动机
+* `CycleGAN`示意图
 
+![论文阅读 | CycleGAN](https://pic2.zhimg.com/v2-0a9e024f44580f6fb71307f106f9ee53_1440w.jpg?source=172ae18b)
+
+* 动机
   * 目前缺少成对的数据。成对数据收集起来也非常昂贵
 
   * 某些任务需要大量的数据进行训练，然而目前成对的数据量较小。因此作者想要寻求一种算法，可以学习在没有配对输入输出例子的情况下在域(domain)之间进行转换
