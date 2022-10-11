@@ -896,6 +896,21 @@ loss = (loss_i + loss_t)/2
 
 
 
+#### VL 模型
+
+[[CVPR 2022] Conditional Prompt Learning for Vision-Language Models](https://arxiv.org/abs/2203.05557)
+
+* 动机
+
+  * 以往的CLIP（[CoOP](https://arxiv.org/abs/2109.01134)为例）数据集做VL任务时候对新的类别泛化性不行
+  * 具体来说就是，**CoOp**不再使用"[x]的照片"作为提示，而是引入了M个可学习的提示向量。由于CoOp学到的提示参数存在对训练集过拟合的现象，在新类别上的泛化性能不好
+
+* 方法
+
+  * 因此作者又进一步提出了CoCoOp。CoCoOp加入了一个**轻量的模型**，用于为每个输入图像生成一个**补充提示（Prompt）向量**，提升模型在新类别上的泛化性能。
+
+  ![image-20221011105123453](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221011105123453.png)
+
 ### [DALL-E 2](https://cdn.openai.com/papers/dall-e-2.pdf)
 
 > 图像生成干货满满！
