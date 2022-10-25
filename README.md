@@ -143,14 +143,15 @@ temp --> 同样放入一个CNN里面去,然后softmax
 
 ##  :telescope: NLP
 
-| 日期     | 标题                                                         | 说明         |
-| -------- | ------------------------------------------------------------ | ------------ |
-| 02/24/22 | [Transformer](https://arxiv.org/abs/1706.03762)              | 多头注意力   |
-| 02/27/22 | [BERT](https://arxiv.org/abs/1810.04805)                     | 预训练与微调 |
-| 03/07/22 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) | 语言模型     |
-| 03/20/22 | [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) |              |
-| 03/25/22 | [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814) |              |
-| 06/27/22 | [T5](https://arxiv.org/abs/1910.10683)                       | Text-to-text |
+| 日期     | 标题                                                         | 说明                |
+| -------- | ------------------------------------------------------------ | ------------------- |
+| 02/24/22 | [Transformer](https://arxiv.org/abs/1706.03762)              | 多头注意力          |
+| 02/27/22 | [BERT](https://arxiv.org/abs/1810.04805)                     | 预训练与微调        |
+| 03/07/22 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) | 语言模型            |
+| 03/20/22 | [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) |                     |
+| 03/25/22 | [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814) |                     |
+| 06/27/22 | [T5](https://arxiv.org/abs/1910.10683)                       | Text-to-text        |
+| 10/25/22 | Chain-Of-Thought                                             | COT做大模型推理任务 |
 
 
 
@@ -621,6 +622,78 @@ tr --> 四.对大概多长的小段进行破坏,最后发现3结果最好
 
 
 * 其他实验探索细节可以见[博客](https://zhuanlan.zhihu.com/p/88438851)
+
+
+
+### Chain-Of-Thought
+
+> [代码仓库](https://github.com/amazon-research/auto-cot), 可以自行体验一些`COT`的Demo还有它们的推理表现
+
+
+
+* 推理任务类型
+  * 衡量语言模型的规模
+    * 训练的计算量Flogs
+    * 训练数据的大小 token_num
+    * 模型本身的参数量大小
+  * **System I 任务**：sentiment Analysis 和 Topic Classification的分类任务，人类可以直观理解的
+    * 这一类任务一般会随着语言模型的规模变大，性能会变强
+  * **System II 任务**: 算术推理，常识推理，符号推理任务（下面都会介绍到），LM参数量即使到几百个B都无法解决，会出现**flat scaling curve**
+
+* `COT`和以前的Prompt的方法对比
+
+![image-20221025164358639](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221025164358639.png)
+
+* `COT`的方法求解推理范式
+
+![image-20221025164249541](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221025164249541.png)
+
+
+
+#### [Zero-shot COT](https://arxiv.org/abs/2201.11903)
+
+> `COT`的开山之作
+
+* 主要贡献
+
+  * 提供了中间推理的步骤
+  * 提供了可解释性
+  * 利用了few-shot learning的范式
+
+* 方法
+
+  * 对于算术推理任务的所有数据集，给定了八个一样的带有`COT`的样例（之后的`Auto-COT`会自动根据不同数据集给出）， 部分如下图所示：
+
+  ![image-20221025172242430](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221025172242430.png)
+
+  * 消融实验设置（真正诠释了，我的方法很简单，但是不能更简单了）
+
+    * 将`COT`替换成只有算式的部分
+    * 替换成与式子一样的...
+    * 推理放到答案后面
+    * 设计人工prompt验证了方法的稳健性
+
+  * 例子
+
+    * 算术推理
+
+    ![image-20221025195432909](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221025195432909.png)
+
+    
+
+  * 符号推理任务
+
+    ![image-20221025195458977](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221025195458977.png)
+
+    
+
+  * 常识推理任务
+
+    ![image-20221025195545422](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221025195545422.png)
+
+    
+
+  
 
 ------
 
