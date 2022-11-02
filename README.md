@@ -1054,6 +1054,7 @@ loss = (loss_i + loss_t)/2
 | 05/31/22 | [Swin Transformer](https://arxiv.org/pdf/2103.14030.pdf)     | ICCV2021最佳论文                 |
 | 06/11/22 | [DETR](https://arxiv.org/abs/2005.12872)                     | 用于目标检测的Transformer        |
 | 09/12/22 | [CycleGAN](https://openaccess.thecvf.com/content_ICCV_2017/papers/Zhu_Unpaired_Image-To-Image_Translation_ICCV_2017_paper.pdf) | 无配对数据的跨领域image-to-image |
+| 11/02/22 | [MaxViT](https://arxiv.org/abs/2204.01697)                   | 多轴注意力机制 ECCV 2022         |
 
 ### ViT
 
