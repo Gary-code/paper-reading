@@ -1416,6 +1416,35 @@ $$
 
 * [博客链接](https://www.jianshu.com/p/4b59a6b11cc0)
 
+
+
+**MaxViT**
+
+[[ECCV 2022] MaxViT:Multi-Axis Vision Transformer](https://arxiv.org/abs/2204.01697)
+
+* [解读博客](https://zhuanlan.zhihu.com/p/516301467)
+
+* 动机
+
+  * 研究发现，如果没有广泛的预训练，ViT在图像识别方面表现不佳。这是由于Transformer具有较强的建模能力，但是**缺乏[归纳偏置](https://www.zhihu.com/question/264264203)，从而导致过拟合**。
+  * 其中一个有效的解决方法就是**控制模型容量并提高其可扩展性**，在参数量减少的同时得到性能的增强，如Twins、LocalViT以及Swin Transformer等。
+  * 但在灵活性与可扩展性得到提高的同时，由于这些模型普遍**失去了类似于ViT的非局部性，==即具有有限的模型容量，导致无法在更大的数据集上扩展==**（ImageNet-21K、JFT等）。
+  * 研究局部与全局相结合的方法来增加模型灵活性是有必要的。然而，如何实现**对不同数据量的适应**，如何有效**结合局部与全局**计算的优势成为本文要解决的目标。如下图所示：
+
+  ![img](https://pic4.zhimg.com/80/v2-4e6b74df3ed5684aa171f3cef16bb99f_720w.webp)
+
+* 贡献点
+
+  * **MaxViT**是一个通用的Transformer结构**，**在每一个块内都可以实现**局部与全局之间的空间交互**，同时可适应不同分辨率的输入大小。
+  * **Max-SA**通过分解空间轴得到**窗口注意力（Block attention）与网格注意力（Grid attention）**，将**传统计算方法的二次复杂度降到线性复杂度**。
+  * **[MBConv](https://zhuanlan.zhihu.com/p/463033740)**作为自注意力计算的补充，利用其固有的归纳偏差来**提升模型的泛化能力**，避免陷入过拟合。
+
+* 方法
+
+![截屏2022-11-02 16.13.13](https://raw.githubusercontent.com/Gary-code/pic/main/img/%E6%88%AA%E5%B1%8F2022-11-02%2016.13.13.png)
+
+![截屏2022-11-02 16.13.31](https://raw.githubusercontent.com/Gary-code/pic/main/img/%E6%88%AA%E5%B1%8F2022-11-02%2016.13.31.png)
+
 ## :sunrise: Contrastive Learning
 
 | 日期     | 标题                                       | 说明                           |
