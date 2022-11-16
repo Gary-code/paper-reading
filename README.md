@@ -152,6 +152,7 @@ temp --> 同样放入一个CNN里面去,然后softmax
 | 03/25/22 | [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814) |                     |
 | 06/27/22 | [T5](https://arxiv.org/abs/1910.10683)                       | Text-to-text        |
 | 10/25/22 | Chain-Of-Thought                                             | COT做大模型推理任务 |
+| 11/16/22 | [Whisper](https://cdn.openai.com/papers/whisper.pdf)         | 语音识别大力出奇迹  |
 
 
 
@@ -691,9 +692,16 @@ tr --> 四.对大概多长的小段进行破坏,最后发现3结果最好
 
     ![image-20221025195545422](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221025195545422.png)
 
-    
 
-  
+
+
+
+
+### [Whisper](https://cdn.openai.com/papers/whisper.pdf)
+
+> * 大模型做**语音识别**
+>
+> [语音知识相关博客链接](https://medium.com/analytics-vidhya/understanding-the-mel-spectrogram-fca2afa2ce53)
 
 ------
 
