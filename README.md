@@ -747,6 +747,9 @@ tr --> 四.对大概多长的小段进行破坏,最后发现3结果最好
 | 03/09/22 | [CLIP](https://openai.com/blog/clip/)                        | 多模态预训练模型              |
 | 07/11/22 | [DALL-E 2](https://cdn.openai.com/papers/dall-e-2.pdf)       | 扩散模型生成图片， 大力出奇迹 |
 | 09/06/22 | [CLIP 思想迁移论文串讲](https://www.bilibili.com/video/BV1FV4y1p7Lm?spm_id_from=333.337.search-card.all.click&vd_source=c0d79be5d8b0be45f862cc44841ea52d) | 涉及目标检测，语义分割等      |
+| 12/14/22 | [ALBEF](https://arxiv.org/abs/2107.07651)                    | Encoder架构做多模态下游任务   |
+| 12/14/22 | [ViLo](https://arxiv.org/abs/2111.02358)                     | 同上                          |
+|          |                                                              |                               |
 
 
 
@@ -1025,7 +1028,7 @@ loss = (loss_i + loss_t)/2
 
   ![image-20221011105123453](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221011105123453.png)
 
-[[CVPR 2022] CLIP-Event](https://arxiv.org/abs/2201.05078)
+[[CVPR 2022 Oral] CLIP-Event](https://arxiv.org/abs/2201.05078)
 
 > 这篇论文细节操作还是挺多的，这里不展开来介绍
 
@@ -1053,6 +1056,9 @@ loss = (loss_i + loss_t)/2
 * 方法
 
 ![image-20221121211307348](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221121211307348.png)
+
+* 事件理解在下游任务上的应用
+  * VCR，理解了选项的事件还有问题的事件，很好的就可以选出答案
 
 ### [DALL-E 2](https://cdn.openai.com/papers/dall-e-2.pdf)
 
@@ -1106,6 +1112,77 @@ loss = (loss_i + loss_t)/2
 * 两个技巧：
   * Whole Word Masking，整个Token Mask掉
   * 图像数据增强（`RandAugment`）, 但由于涉及到对其任务，作者去掉color inversion还有cutout的方法
+
+
+
+
+
+
+
+### ALBEF
+
+> [[NIPS 2021] Align before Fuse: Vision and Language Representation Learning with Momentum Distillation](https://arxiv.org/abs/2107.07651)
+
+* 动机
+
+  ![image-20221215181323309](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221215181323309.png)
+
+  * 从过去的经验来说，要做好多模态的预训练，使得其在多种下游任务都有优越的性能，必须遵循一下几个范式：
+    1. Visual Encoder > Text Encoder
+    2. Fusion模块药充分
+    3. Loss = IT（(CLIP 对比学习loss） + ITM（图文匹配loss）+ MLM（Mask Language Model）
+       * WPA：文本单词和对象patch的关系，算起来太慢了，不算
+  * `ViLT`的动机是：带有目标检测器的模型推理速度太慢了，但是ViLT的训练的时间也是很夸张的
+  * 本文的核心是过去的OD特征和文本特征不够Align（对齐）因为OD往往是提前训练好的，并没有End-to-end和文本对齐
+
+* 贡献
+
+  * Fusion前做好模态之间的堆砌
+  * 伪标签自训练，momentum distillation（和MoCo类似）。但存在noisy data
+
+* 模型架构
+
+  ![image-20221216200105086](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221216200105086.png)
+
+* 方法
+
+  * 伪标签比`GT`有更好的描述性
+
+  ![image-20221216200242160](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221216200242160.png)
+
+  * 动量蒸馏
+    * 由于网上收集下来的数据存在noisy，
+      * 网络数据往往是偏向于关键词的，而不是描述性文本
+      * one-hot的形式对loss计算并不友好，因此使用multi-hot（正好和伪标签匹配）【`KL loss`】
+
+
+
+### [VLMo](https://arxiv.org/abs/2111.02358)
+
+* 动机
+
+  * 过去的工作往往是双塔结果（两个模态encoder），交互太浅了
+  * Fusion的过程当中推理速度太慢了
+
+* 贡献点
+
+  * 多专家
+    * 由于Transformer本来就对所有模态都很友好，不需要对每个模态进行重新训练或者改变网络架构
+  * 分阶段预训练
+
+* 方法
+
+  * 框架
+
+  ![image-20221216200922170](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221216200922170.png)
+
+  * 分阶段预训练策略
+
+    * 一般Transformer都是**先Vision上预训练完，就可以直接迁移到文本当中**（反过来效果不是很好）
+
+    ![image-20221216201039584](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221216201039584.png)
+
+  
 
 
 
