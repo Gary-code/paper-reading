@@ -153,6 +153,7 @@ temp --> 同样放入一个CNN里面去,然后softmax
 | 06/27/22 | [T5](https://arxiv.org/abs/1910.10683)                       | Text-to-text        |
 | 10/25/22 | Chain-Of-Thought                                             | COT做大模型推理任务 |
 | 11/16/22 | [Whisper](https://cdn.openai.com/papers/whisper.pdf)         | 语音识别大力出奇迹  |
+| 12/28/22 | [InstructGPT](https://openai.com/blog/instruction-following/) | ChatGPT的前身       |
 
 
 
@@ -735,6 +736,32 @@ tr --> 四.对大概多长的小段进行破坏,最后发现3结果最好
   * 结果和实验分析具体见论文
 
 
+
+### [InstructGPT](https://openai.com/blog/instruction-following/)
+
+> 2022年四月份发出来，ChatGPT的前身
+
+* 动机
+  * 语言模型并不是越大就越符合**人类的意图**
+  * 要拒绝回答有毒的信息
+* 贡献
+  * 利用人类反馈来进行微调
+  * 对候选答案进行排序
+* 训练方法
+
+![image-20221229203231171](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221229203231171.png)
+
+* 方法细节
+
+  * Step 2: 候选答案**排序Loss** `Pair-wise ranking loss` 
+
+  ![image-20221229203410603](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221229203410603.png)
+
+  * Step 3: 强化学习Loss (`PPO`)
+
+  ![image-20221229203512164](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221229203512164.png)
+
+  
 
 ------
 
