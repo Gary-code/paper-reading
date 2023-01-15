@@ -1111,7 +1111,9 @@ loss = (loss_i + loss_t)/2
 
 **论文写的比较简单，核心的干货都在我的个人笔记里面，可以自行查看！**
 
+### 多模态预训练
 
+![image-20230115170219358](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230115170219358.png)
 
 ### ViLT
 
@@ -1212,6 +1214,75 @@ loss = (loss_i + loss_t)/2
   
 
 
+
+### [BILP](https://arxiv.org/abs/2201.12086)
+
+> ALBEF原班人马的工作，因此在训练技巧上和ALBEF很像
+
+* 动机
+
+  * 模型角度：过去的框架不能一个人把活都干了，不够unified
+
+    * encoder-based的做生成任务不好
+    * encoder-decoder框架的又不能直接应用到图文检索的任务当中
+
+  * 数据集角度：过去训练大模型的数据集都是直接从网上爬下来（存在很多图文不匹配的问题），没有严谨的filter过
+
+    * 虽然事实证明数据集规模增大有利于模型效果提高，但是还不是最优解
+
+    ![image-20230115171110756](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230115171110756.png)
+
+* 模型
+
+![image-20230115171152519](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230115171152519.png)
+
+* filterCap（即filter又生成新的caption）模型处理数据集，详见论文，效果真的很好很好（同时启发了大家处理noisy数据的方法）
+
+![image-20230115171237674](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230115171237674.png)
+
+* FilCap case展示
+
+![image-20230115171331752](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230115171331752.png)
+
+
+
+* BLIP的应用：[Laion 600M数据集](https://laion.ai/blog/laion-coco/)
+
+
+
+### [CoCa](https://arxiv.org/pdf/2205.01917.pdf)
+
+> Contrastive Captioners are Image-Text Foundation Models
+>
+> * 数据集和模型上比BLIP更大，效果更好
+
+* 贡献
+  * 借助前面的工作，提高了训练效率
+  * 在单模态和多模态下游任务表现都极其出色
+* 方法
+
+![image-20230115171815056](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230115171815056.png)
+
+* 效果展示
+
+![image-20230115171850920](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230115171850920.png)
+
+
+
+### [BeiT v3](https://arxiv.org/pdf/2208.10442.pdf)
+
+> 12边形战士，比CoCa效果又更好
+
+* 动机
+  * **之前框架不够大一统，对特定的下游任务仍需改进**，所以这里使用了multiway Transformer的形式
+  * **loss只希望用一个**，多个forward太多训练太慢了，而且loss之间可能**互补互斥**
+    * 可以将图像变成一种语言，做MLM
+  * **Scale Up模型大小和数据集大小** ，而且这里的**训练数据集是公开的**
+* 模型
+
+![image-20230115172422615](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230115172422615.png)
+
+![image-20230115172634343](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230115172634343.png)
 
 ---
 
