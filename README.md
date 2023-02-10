@@ -143,17 +143,18 @@ temp --> 同样放入一个CNN里面去,然后softmax
 
 ##  :telescope: NLP
 
-| 日期     | 标题                                                         | 说明                |
-| -------- | ------------------------------------------------------------ | ------------------- |
-| 02/24/22 | [Transformer](https://arxiv.org/abs/1706.03762)              | 多头注意力          |
-| 02/27/22 | [BERT](https://arxiv.org/abs/1810.04805)                     | 预训练与微调        |
-| 03/07/22 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) | 语言模型            |
-| 03/20/22 | [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) |                     |
-| 03/25/22 | [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814) |                     |
-| 06/27/22 | [T5](https://arxiv.org/abs/1910.10683)                       | Text-to-text        |
-| 10/25/22 | Chain-Of-Thought                                             | COT做大模型推理任务 |
-| 11/16/22 | [Whisper](https://cdn.openai.com/papers/whisper.pdf)         | 语音识别大力出奇迹  |
-| 12/28/22 | [InstructGPT](https://openai.com/blog/instruction-following/) | ChatGPT的前身       |
+| 日期     | 标题                                                         | 说明                                |
+| -------- | ------------------------------------------------------------ | ----------------------------------- |
+| 02/24/22 | [Transformer](https://arxiv.org/abs/1706.03762)              | 多头注意力                          |
+| 02/27/22 | [BERT](https://arxiv.org/abs/1810.04805)                     | 预训练与微调                        |
+| 03/07/22 | [GPT](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf), [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [GPT-3](https://arxiv.org/abs/2005.14165) | 语言模型                            |
+| 03/20/22 | [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) |                                     |
+| 03/25/22 | [Competition-Level Code Generation with AlphaCode](https://arxiv.org/abs/2203.07814) |                                     |
+| 06/27/22 | [T5](https://arxiv.org/abs/1910.10683)                       | Text-to-text                        |
+| 10/25/22 | Chain-Of-Thought                                             | COT做大模型推理任务                 |
+| 11/16/22 | [Whisper](https://cdn.openai.com/papers/whisper.pdf)         | 语音识别大力出奇迹                  |
+| 12/28/22 | [InstructGPT](https://openai.com/blog/instruction-following/) | ChatGPT的前身                       |
+| 09/02/23 | [HELM](https://arxiv.org/abs/2211.09110)                     | 语言模型的全面评估 （**2022年尾**） |
 
 
 
@@ -761,7 +762,14 @@ tr --> 四.对大概多长的小段进行破坏,最后发现3结果最好
 
   ![image-20221229203512164](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221229203512164.png)
 
-  
+
+
+
+## HELM 语言模型的全面评估
+
+* [[Holistic Evaluation of Language Models论文（综述类）](https://arxiv.org/abs/2211.09110)]
+
+
 
 ------
 
