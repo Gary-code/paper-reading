@@ -1292,6 +1292,38 @@ loss = (loss_i + loss_t)/2
 
 ![image-20230115172634343](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230115172634343.png)
 
+
+
+### [Flamingo :turkey:](https://arxiv.org/abs/2204.14198)
+
+> **in NIPS 2022**
+
+* 动机
+  * 即使是很noisy的网络上的图文数据也可以预训练很好的模型
+  * 微调的时候使用Adapter的方式
+
+* 方法
+
+  * 模型
+
+  ![image-20230220153908602](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230220153908602.png)
+
+* 模块概览
+
+![image-20230220153942297](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230220153942297.png)
+
+![image-20230220154005342](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230220154005342.png)
+
+
+
+* Case展示（太牛逼了）
+
+![](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230220154005342.png)
+
+
+
+ 
+
 ---
 
 
