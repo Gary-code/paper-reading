@@ -784,7 +784,7 @@ tr --> 四.对大概多长的小段进行破坏,最后发现3结果最好
 | 09/06/22 | [CLIP 思想迁移论文串讲](https://www.bilibili.com/video/BV1FV4y1p7Lm?spm_id_from=333.337.search-card.all.click&vd_source=c0d79be5d8b0be45f862cc44841ea52d) | 涉及目标检测，语义分割等      |
 | 12/14/22 | [ALBEF](https://arxiv.org/abs/2107.07651)                    | Encoder架构做多模态下游任务   |
 | 12/14/22 | [ViLo](https://arxiv.org/abs/2111.02358)                     | 同上                          |
-|          |                                                              |                               |
+| 02/20/23 | [Flamingo :turkey:](https://arxiv.org/abs/2204.14198)        | 多模态预训练，包括**视频**    |
 
 
 
