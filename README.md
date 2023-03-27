@@ -762,12 +762,38 @@ tr --> 四.对大概多长的小段进行破坏,最后发现3结果最好
 
   ![image-20221229203512164](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20221229203512164.png)
 
-
-
-
-## HELM 语言模型的全面评估
+### HELM 语言模型的全面评估
 
 * [[Holistic Evaluation of Language Models论文（综述类）](https://arxiv.org/abs/2211.09110)]
+
+
+
+### Anthropic LLM
+
+[Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)
+
+> 技术上已经很类似于ChatGPT了，使用了**在线训练+对话形式的人类反馈学习**
+
+* 动机和考虑
+  * 无害性 + 有用性
+
+![image-20230327105742136](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230327105742136.png)
+
+* 核心方法
+
+  * 对齐学习
+  * 迭代的在线训练（训练好的模型继续的标数据，每周更新一次）
+  * 基于对话形式的**人类反馈强化学习** （A好还是B好）
+
+  ![image-20230327105907082](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230327105907082.png)
+
+* 实验结果
+
+  * **模型大了，RLHF表现才会好**（有那么多参数记住那么多的东西）
+
+![image-20230327105832489](https://raw.githubusercontent.com/Gary-code/pic/main/img/image-20230327105832489.png)
+
+* **其他细节详见论文**
 
 
 
